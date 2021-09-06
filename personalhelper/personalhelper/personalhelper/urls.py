@@ -24,4 +24,5 @@ urlpatterns = [
     path('contacts/', include('contacts.urls')),
     path('', RedirectView.as_view(url='/contacts/', permanent=True)),
     path('files/', include('contacts.urls')),
-]
+] + static(settings.STATIC_URL, document_root= settings.STATIC_ROOT)
+

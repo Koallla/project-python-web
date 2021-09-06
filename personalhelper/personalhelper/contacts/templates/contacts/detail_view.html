@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail contact</title>
-</head>
-<body>
-    <a class='button' type="submit" href="/contacts/" target='_blank'>Main page </a>
+{% extends 'contacts/layout.html' %}
 
-    <h1>{{contact.contact_name }}</h1>
-    <p>{{contact.contact_phone}}</p>
-    <p>Email - {{contact.contact_email}}</p>
-    <p>Adress - {{contact.contact_adress}}</p>
-    <p>Birthday - {{contact.contact_birthday}}</p>
+{% block title %}Delete contact{% endblock %}
 
-    <a href = "/contacts/show_contacts/{{contact.id}}/delete">Delete contact</a>
-    <br>
-    <a href = "/contacts/show_contacts/{{contact.id}}/update">Update contact</a>    
-    
-    
-</body>
-</html>
+{% block content %}
+	<div class="features">
+        <h1>Detail contact</h1>
+            <p>
+                <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
+
+                <h2>{{contact.contact_name }}</h2>
+                <p>{{contact.contact_phone}}</p>
+                <p>Email - {{contact.contact_email}}</p>
+                <p>Adress - {{contact.contact_adress}}</p>
+                <p>Birthday - {{contact.contact_birthday}}</p>
+
+                <a href = "/contacts/show_contacts/{{contact.id}}/delete">Delete contact</a>
+                <br>
+                <a href = "/contacts/show_contacts/{{contact.id}}/update">Update contact</a>    
+            </p>
+    </div>
+{% endblock %}
