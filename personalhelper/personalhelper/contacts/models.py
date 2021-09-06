@@ -6,7 +6,8 @@ SFS = SFTPStorage()
 
 class Contact(models.Model):
     name = models.CharField(max_length=50)
-    contact_photo = models.FileField(storage=SFS, null=True, )
+    contact_photo = models.FileField(
+        upload_to='files/', storage=SFS, null=True)
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})

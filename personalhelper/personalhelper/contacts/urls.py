@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    path('<str:filepath>/', views.download_file),
+    path('<str:filename>', views.download_file),
 ]

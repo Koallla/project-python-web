@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('contacts/', include('contacts.urls')),
     path('', RedirectView.as_view(url='/contacts/', permanent=True)),
-
+    path('files/', include('contacts.urls')),
 ]
