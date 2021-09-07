@@ -18,4 +18,4 @@ class UserFile(models.Model):
         return f'{self.file.name}'
 
     def __str__(self) -> str:
-        return self.file.name
+        return self.file.name.replace('files\\', '')

@@ -30,6 +30,12 @@ def add_file(request):
 class UsersFilesView(generic.ListView):
     model = UserFile
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['userfile_list'] = UserFile.objects.filter(
+            user_id=self.request.user.id)
+        return context
+
 
 def download_file(request, filename):
 

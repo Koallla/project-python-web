@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, request
 from .models import Contact, Phone
 from django.template import loader
-from .forms import ContactCreateForm, SearchForm, PhoneForm
+from .forms import ContactForm, SearchForm, PhoneForm
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 import re
@@ -46,7 +46,7 @@ def index(request):
 def add_contact(request):
 
     if request.method == 'POST':
-        form = ContactCreateForm(request.POST)
+        form = ContactForm(request.POST)
         form1 = PhoneForm(request.POST)
         if form.is_valid() and form1.is_valid():
             user = form.cleaned_data.get('user')
@@ -66,7 +66,7 @@ def add_contact(request):
         else:
             return render(request, 'contacts/add_contact.html', {'form': form, 'form1': form1})
     else:
-        form = ContactCreateForm(initial={'user': request.user})
+        form = ContactForm(initial={'user': request.user})
         form1 = PhoneForm()
         return render(request, 'contacts/add_contact.html', {'form': form, 'form1': form1})
 
