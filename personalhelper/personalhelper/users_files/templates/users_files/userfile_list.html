@@ -11,7 +11,7 @@
         <a href="{{ file.get_absolute_url }}">{{ file }}</a>
     </li>
     {% endfor %}
-
+    <a href="{% url 'contacts:index' %}"> Back to HOME </a>
 </ul>
 {% else %}
 <p>There are no files in {{ user.name }}.</p>

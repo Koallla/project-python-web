@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
 
 from users.forms import CustomUserCreationForm
 
@@ -16,6 +15,6 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect(reverse("index"))
+            return redirect(reverse("contacts:index"))
         else:
             return render(request, 'users/register.html', {'form': CustomUserCreationForm})

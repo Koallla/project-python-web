@@ -148,8 +148,8 @@ SFTP_STORAGE_PARAMS = {'username': 'dev_users', 'password': 'dev_2021'}
 SFTP_STORAGE_INTERACTIVE = False
 
 
-LOGIN_REDIRECT_URL = "index"
-LOGOUT_REDIRECT_URL = "index"
+LOGIN_REDIRECT_URL = "contacts:index"
+LOGOUT_REDIRECT_URL = "contacts:index"
 
 
 EMAIL_HOST = "localhost"
