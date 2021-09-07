@@ -1,3 +1,30 @@
 from django.db import models
+from django.urls import reverse
 
-# Create your models here.
+class Tag(models.Model):
+    title = models.CharField(max_length=20)
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
+        
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this Tag."""
+        return reverse('tag-detail', args=[str(self.id)])
+
+class Note(models.Model):
+    title = models.CharField(max_length=20)
+    tags = models.ManyToManyField(Tag)
+    value = models.TextField(max_length = 1000, default = 'LaLaLa')
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this Note."""
+        return reverse('note-detail', args=[str(self.id)])

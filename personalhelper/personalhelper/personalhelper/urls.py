@@ -22,7 +22,8 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('contacts/', include('contacts.urls')),
-    path('', RedirectView.as_view(url='/contacts/', permanent=True)),
+    #path('', RedirectView.as_view(url='/contacts/', permanent=True)),
     path('files/', include('contacts.urls')),
+    path('notes/', include('notes.urls')),
 ] + static(settings.STATIC_URL, document_root= settings.STATIC_ROOT)
 

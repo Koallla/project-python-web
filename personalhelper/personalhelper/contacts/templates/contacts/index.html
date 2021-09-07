@@ -4,16 +4,19 @@
 
 {% block content %}
 	<div class="features">
-		<h1>What are you want to do with contacts?</h1>
-            <p>
-                <form>
-                    <a class='btn btn-warning' type="submit" href="/contacts/add_contact/" target='_blank'>Add contact </a>
-                    <br>
-                    <br>
-                    <a class='btn btn-warning' type="submit" href="/contacts/show_contacts/" target='_blank'>Show contacts </a>
-                    <br>
-                    <br>
-                </form>
-            </p>
-	</div>
+    <h1>Hello, {{ user.username|default:'Guest'}}</h1>
+        <p>
+          {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}">Logout</a>
+          <a href="{% url 'password_change' %}">Change password</a>
+          <a href="{% url 'contact-create' %}">Add new contact</a>
+          <a href="{% url 'files-create' %}">Add new file</a>
+          <a href="{% url 'userfiles' %}">Show all files</a>
+          <a class='btn btn-warning' type="submit" href="/contacts/add_contact/" target='_blank'>Add contact </a>
+          <a class='btn btn-warning' type="submit" href="/contacts/show_contacts/" target='_blank'>Show contacts </a>
+          {% else %}
+          <a href="{% url 'login' %}">Login</a>
+          {% endif %}
+        </p>
+	 </div>
 {% endblock %}

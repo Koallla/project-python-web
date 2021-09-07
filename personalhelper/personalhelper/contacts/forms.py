@@ -1,8 +1,14 @@
+from django.forms import ModelForm, HiddenInput
 from .models import Contact
-from django.forms import ModelForm
 
-class ContactForm(ModelForm):
+
+class ContactCreateForm(ModelForm):
+    def clean_name(self):
+        data = self.cleaned_data['contact_name']
+        if len(data) < 50:
+            return data
+
     class Meta:
         model = Contact
-
-        fields = ['contact_name', 'contact_phone', 'contact_email', 'contact_birthday', 'contact_adress']
+        fields = ['user', 'contact_name', 'contact_photo']
+        widgets = {'user': HiddenInput()}
