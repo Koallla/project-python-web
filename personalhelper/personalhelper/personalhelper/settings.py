@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'contacts.apps.ContactsConfig',
     'notes.apps.NotesConfig',
-    'users_files.apps.UsersFilesConfig'
 ]
 
 MIDDLEWARE = [
@@ -79,21 +77,14 @@ WSGI_APPLICATION = 'personalhelper.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase.db',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'web-project',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '82.193.125.109',
+        'PORT': '5432',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'web-project',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': '82.193.125.109',
-#         'PORT': '5432',
-#     }
-# }
 
 
 # Password validation
@@ -146,11 +137,3 @@ SFTP_STORAGE_HOST = '82.193.125.109'
 SFTP_STORAGE_ROOT = '/home/'
 SFTP_STORAGE_PARAMS = {'username': 'dev_users', 'password': 'dev_2021'}
 SFTP_STORAGE_INTERACTIVE = False
-
-
-LOGIN_REDIRECT_URL = "index"
-LOGOUT_REDIRECT_URL = "index"
-
-
-EMAIL_HOST = "localhost"
-EMAIL_PORT = 1025
