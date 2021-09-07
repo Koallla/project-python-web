@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail contact</title>
+</head>
+<body>
+    <a class='button' type="submit" href="/contacts/" target='_blank'>Main page </a>
+
+    <h1>{{contact.contact_name }}</h1>
+    <p>{{contact.contact_phone}}</p>
+    <p>Email - {{contact.contact_email}}</p>
+    <p>Adress - {{contact.contact_adress}}</p>
+    <p>Birthday - {{contact.contact_birthday}}</p>
+
+    <a href = "/contacts/show_contacts/{{contact.id}}/delete">Delete contact</a>
+    <br>
+    <a href = "/contacts/show_contacts/{{contact.id}}/update">Update contact</a>    
+    
+    
+</body>
+</html>

@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.urls import reverse
@@ -13,12 +14,17 @@ class Contact(models.Model):
     contact_name = models.CharField(max_length=50)
     contact_photo = models.FileField(
         upload_to='contacts/files/', storage=SFS, null=True, blank=True)
+    contact_email = models.EmailField(null=False, blank=True)
+    contact_adress = models.CharField(max_length=50, null=True, blank=True)
+    contact_phone = models.CharField(
+        max_length=10, null=False, default='0501111111')
+    contact_birthday = models.DateField(null=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse("model_detail", kwargs={"pk": self.pk})
+        return f'/contacts/show_contacts/{self.pk}'
 
-    def __str__(self) -> str:
-        return self.contact_name
+    def __str__(self):
+        return f'{self.contact_name} | {self.contact_phone}'
 
 
 class Phone(models.Model):
