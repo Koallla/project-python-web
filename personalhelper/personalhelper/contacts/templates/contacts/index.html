@@ -14,6 +14,7 @@
           <a href="{% url 'userfiles' %}">Show all files</a>
           <a class='btn btn-warning' type="submit" href="/contacts/add_contact/" target='_blank'>Add contact </a>
           <a class='btn btn-warning' type="submit" href="/contacts/show_contacts/" target='_blank'>Show contacts </a>
+          <a class='btn btn-warning' type="submit" href="/contacts/search_contact/" target='_blank'>Search contacts </a>
           {% else %}
           <a href="{% url 'login' %}">Login</a>
           {% endif %}
