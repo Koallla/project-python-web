@@ -17,8 +17,8 @@
         <ul>
         {% for record in record_list %}
         
-            <li>{{ record.id}} -- {{ record.contact_name }} ----{{record.contact_phone}}
-            <a href = "/contacts/show_contacts/{{record.id}}">Show detail</a>
+            <li> {{ record.contact.contact_name }} ----{{record.phone}}
+            <a href = "/contacts/show_contacts/{{record.contact.id}}">Show detail</a>
             </li><br>
         
         {% endfor %}
