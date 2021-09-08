@@ -44,7 +44,7 @@ def index(request):
     return render(request, 'contacts/index.html')
 
 
-@login_required
+@login_required(login_url='login')
 def add_contact(request):
 
     if request.method == 'POST':
@@ -73,7 +73,7 @@ def add_contact(request):
         return render(request, 'contacts/add_contact.html', {'form': form, 'form1': form1})
 
 
-@login_required
+@login_required(login_url='login')
 def show_all(request):
     contact_list = Contact.objects.filter(
         user_id=request.user.id)
@@ -103,7 +103,7 @@ class ContactDeleteView(DeleteView):
     template_name = 'contacts/delete_view.html'
 
 
-@login_required
+@login_required(login_url='login')
 def search(request):
 
     if request.method == 'POST':
@@ -130,7 +130,7 @@ def search(request):
         return render(request, 'contacts/search_contact.html', {'form': form})
 
 
-@login_required
+@login_required(login_url='login')
 def add_phone(request, id):
     form = PhoneForm()
     # print(id)

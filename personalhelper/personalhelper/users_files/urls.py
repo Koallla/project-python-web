@@ -9,4 +9,5 @@ urlpatterns = [
         name='files-create'),
     url(r'^userfiles/$', views.UsersFilesView.as_view(), name='userfiles'),
     path('userfiles/files/<str:filename>', views.download_file),
+    path('delete/files/<int:id>', views.delete_file, name='delete-file'),
 ]

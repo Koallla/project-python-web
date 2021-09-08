@@ -1,5 +1,5 @@
 import mimetypes
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views import generic
@@ -12,16 +12,19 @@ from .forms import UserFileAdd
 SFS = SFTPStorage()
 
 
-@login_required
+@login_required(login_url='login')
 def add_file(request):
     if request.method == 'POST':
         form = UserFileAdd(request.POST, request.FILES)
-        filename = request.FILES['file']
-        print(filename)
-        print(mimetypes.guess_type(filename.name))
         if form.is_valid():
-            form.save()
-        return redirect('userfiles')
+            filename = request.FILES['file']
+            print(filename)
+            print(mimetypes.guess_type(filename.name))
+            if form.is_valid():
+                form.save()
+            return redirect('userfiles')
+        else:
+            return render(request, 'users_files/add.html', {'form': form})
     else:
         form = UserFileAdd(initial={'user': request.user})
     return render(request, 'users_files/add.html', {'form': form})
@@ -48,3 +51,11 @@ def download_file(request, filename):
         response = HttpResponse(file, content_type=mime_type)
         response['Content-Disposition'] = f"attachment; filename={filename}"
         return response
+
+
+def delete_file(request, id):
+    # if SFS.exists('files\\' + file):
+    print(id)
+    file = UserFile.objects.get(pk=id)
+    file.delete()
+    return redirect('userfiles')
