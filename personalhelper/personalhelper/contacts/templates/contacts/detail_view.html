@@ -1,21 +1,21 @@
 {% extends 'contacts/layout.html' %}
 
-{% block title %}Delete contact{% endblock %}
+{% block title %}Detail contact{% endblock %}
 
 {% block content %}
-	<div class="features">
-        <h1>{{contact.contact_name }}</h1>
-          <p>
-          <p>{{contact.phone}}</p>
-          <p>Email - {{contact.contact_email}}</p>
-          <p>Adress - {{contact.contact_adress}}</p>
-          <p>Birthday - {{contact.contact_birthday}}</p>
+<div class="features">
+  <h1>{{contact.contact_name }}</h1>
+  <p>
+  <p>{{contact.phone}}</p>
+  <p>Email - {{contact.contact_email}}</p>
+  <p>Adress - {{contact.contact_adress}}</p>
+  <p>Birthday - {{contact.contact_birthday}}</p>
 
-          <a href = "/contacts/show_contacts/{{contact.id}}/delete">Delete contact</a>
-          <br><br>
-          <a href = "/contacts/show_contacts/{{contact.id}}/update">Update contact</a>    
-          <br><br>
-          <a href = "/contacts/show_contacts/add_phone/{{contact.id}}">ADD phone</a> 
-           </p>
-    </div>
+  <a href="/contacts/show_contacts/{{contact.id}}/delete">Delete contact</a>
+  <br><br>
+  <a href="/contacts/show_contacts/{{contact.id}}/update">Update contact</a>
+  <br><br>
+  <a href="/contacts/show_contacts/add_phone/{{contact.id}}">ADD phone</a>
+  </p>
+</div>
 {% endblock %}

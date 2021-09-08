@@ -7,6 +7,7 @@ from django.template import loader
 from .forms import ContactForm, SearchForm, PhoneForm
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
+from django.contrib.auth.decorators import login_required
 import re
 
 # Create your views here.
@@ -43,6 +44,7 @@ def index(request):
     return render(request, 'contacts/index.html')
 
 
+@login_required
 def add_contact(request):
 
     if request.method == 'POST':
@@ -71,6 +73,7 @@ def add_contact(request):
         return render(request, 'contacts/add_contact.html', {'form': form, 'form1': form1})
 
 
+@login_required
 def show_all(request):
     contact_list = Phone.objects.all()
     # print(contact_list)
@@ -100,6 +103,7 @@ class ContactDeleteView(DeleteView):
     template_name = 'contacts/delete_view.html'
 
 
+@login_required
 def search(request):
 
     if request.method == 'POST':
@@ -126,6 +130,7 @@ def search(request):
         return render(request, 'contacts/search_contact.html', {'form': form})
 
 
+@login_required
 def add_phone(request, id):
     form = PhoneForm()
     # print(id)

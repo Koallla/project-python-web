@@ -11,9 +11,11 @@
         <a href="{% url 'password_change' %}">Change password</a>
         <a href="{% url 'files-create' %}">Add new file</a>
         <a href="{% url 'userfiles' %}">Show all files</a>
-        <a class='btn btn-warning' type="submit" href="/contacts/add_contact/" target='_blank'>Add contact </a>
-        <a class='btn btn-warning' type="submit" href="/contacts/show_contacts/" target='_blank'>Show contacts </a>
-        <a class='btn btn-warning' type="submit" href="/contacts/search_contact/" target='_blank'>Search contacts </a>
+        <a class='btn btn-warning' type="submit" href="{% url 'contacts:add-contact' %}" target='_self'>Add contact </a>
+        <a class='btn btn-warning' type="submit" href="{% url 'contacts:show-contacts' %}" target='_self'>Show contacts
+        </a>
+        <a class='btn btn-warning' type="submit" href="{% url 'contacts:search-contact' %}" target='_self'>Search
+            contacts </a>
         {% else %}
         <a href="{% url 'login' %}">Login</a>
         {% endif %}

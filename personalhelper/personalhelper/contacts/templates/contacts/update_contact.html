@@ -1,17 +1,17 @@
 {% extends 'contacts/layout.html' %}
 
-{% block title %}Delete contact{% endblock %}
+{% block title %}Update contact{% endblock %}
 
 {% block content %}
-	<div class="features">
-		<h1>Update contact</h1>
-            <p>
-                <form action = "" method="POST">
-                    <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type = 'submit' value = 'Submit'>
-                </form>
-            </p>
-    </div>
+<div class="features">
+    <h1>Update contact</h1>
+    <p>
+    <form action="" method="POST">
+        <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' value='Submit'>
+    </form>
+    </p>
+</div>
 {% endblock %}
