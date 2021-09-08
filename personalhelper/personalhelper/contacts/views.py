@@ -75,8 +75,8 @@ def add_contact(request):
 
 @login_required
 def show_all(request):
-    contact_list = Phone.objects.all()
-    # print(contact_list)
+    contact_list = Contact.objects.filter(
+        user_id=request.user.id)
     template = loader.get_template('contacts/show_all.html')
     context = {
         'record_list': contact_list

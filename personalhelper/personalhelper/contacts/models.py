@@ -19,7 +19,7 @@ class Contact(models.Model):
         return f'/contacts/show_contacts/{self.pk}'
 
     def __str__(self):
-        return f'{self.contact_name} | {self.contact_phone}'
+        return f'{self.contact_name}'
 
 
 class Phone(models.Model):
@@ -28,4 +28,4 @@ class Phone(models.Model):
         'Contact', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.value
+        return self.phone

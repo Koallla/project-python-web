@@ -1,22 +1,24 @@
-{% extends "base.html" %}
+{% extends 'contacts/layout.html' %}
+
+{% block title %}Tag details{% endblock %}
 
 {% block content %}
-  <h1>Title: {{ tag.title }}</h1>
+<h1>Title: {{ tag.title }}</h1>
 
-  <p><strong>Author:</strong> username</p> <!-- author detail link not yet defined -->
+<p><strong>Author:</strong> username</p> <!-- author detail link not yet defined -->
 
-  <div style="margin-left:20px;margin-top:20px">
-    <h4>Notes:</h4>
+<div style="margin-left:20px;margin-top:20px">
+	<h4>Notes:</h4>
 	{% if tag.note_set.all %}
-	  <ul>
+	<ul>
 		{% for note in tag.note_set.all %}
-		  <li>
+		<li>
 			<a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
-		  </li>
+		</li>
 		{% endfor %}
-	  </ul>
+	</ul>
 	{% else %}
-		<p>There are no notes with this tag.</p>
+	<p>There are no notes with this tag.</p>
 	{% endif %}
-  </div>
+</div>
 {% endblock %}

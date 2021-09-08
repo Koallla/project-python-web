@@ -1,16 +1,17 @@
-{% extends "base.html" %}
+{% extends 'contacts/layout.html' %}
 
+{% block title %}Tag list{% endblock %}
 {% block content %}
-  <h1>Tag List</h1>
-  {% if tag_list %}
-  <ul>
-    {% for tag in tag_list %}
-      <li>
-        <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-    <p>There are no tags in the profile.</p>
-  {% endif %}
+<h1>Tag List</h1>
+{% if tag_list %}
+<ul>
+  {% for tag in tag_list %}
+  <li>
+    <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>There are no tags in the profile.</p>
+{% endif %}
 {% endblock %}
