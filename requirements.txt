@@ -11,6 +11,7 @@ cryptography==3.4.8
 cssselect==1.1.0
 Django==3.2.7
 django-storages==1.11.1
+greenlet==1.1.1
 h2==3.2.0
 hpack==3.0.0
 hyperframe==5.2.0
@@ -20,6 +21,7 @@ incremental==21.3.0
 itemadapter==0.4.0
 itemloaders==1.0.4
 jmespath==0.10.0
+jsonlines==2.0.0
 lxml==4.6.3
 paramiko==2.7.2
 parsel==1.6.0
