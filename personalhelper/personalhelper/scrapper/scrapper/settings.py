@@ -1,3 +1,6 @@
+import os
+import sys
+
 # Scrapy settings for scrapper project
 #
 # For simplicity, this file contains only settings considered important or
@@ -6,6 +9,16 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+
+
+sys.path.append(os.path.dirname(os.path.abspath('.')))
+
+# Do not forget the change iCrawler part based on your project name
+os.environ['DJANGO_SETTINGS_MODULE'] = 'scrapper.settings'
+
+import django
+django.setup()
+
 
 BOT_NAME = 'scrapper'
 
@@ -62,9 +75,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'scrapper.pipelines.ScrapperPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'scrapper.pipelines.ScrapperPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

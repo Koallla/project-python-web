@@ -9,5 +9,11 @@ from itemadapter import ItemAdapter
 
 
 class ScrapperPipeline:
+    
     def process_item(self, item, spider):
-        return item
+        adapter = ItemAdapter(item)
+        if adapter.get('name'):
+            item.save()
+            return item
+        else:
+            raise DropItem(f"Missing name in {item}")
