@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -18,6 +19,7 @@ class Note(models.Model):
     title = models.CharField(max_length=20)
     tags = models.ManyToManyField(Tag)
     value = models.TextField(max_length = 1000, default = 'LaLaLa')
+    owner = models.ForeignKey(User, on_delete = models.SET_NULL, null = True, blank = True)
 
     class Meta:
         ordering = ['title']
