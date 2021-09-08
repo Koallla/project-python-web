@@ -1,0 +1,26 @@
+{% extends 'contacts/layout.html' %}
+
+{% block title %}Contacts{% endblock %}
+{% block content %}
+    <div class="features">
+        <h1>Contacts in your Adressbook</h1>
+            <p>
+                <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
+                    <br>
+                    {% if record_list %}
+                    <h2>All Contacts:</h2>
+                        <ul>
+                        {% for record in record_list %}
+                        
+                            <li> {{ record.contact.contact_name }} ----{{record.phone}}
+                            <a href = "/contacts/show_contacts/{{record.id}}">Show detail</a>
+                            </li><br>
+                        
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                    <p>No contacts are available.</p>
+                    {% endif %}
+            </p>
+    </div>
+{% endblock %}

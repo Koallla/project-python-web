@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Title: {{ note.title }}</h1>
+
+  <p><strong>Author:</strong> username</p> <!-- author detail link not yet defined -->
+  <p><strong>Tags:</strong></p>
+  	{% if note.tags.all %}
+	  <ul>
+		{% for tag in note.tags.all %}
+		  <li>
+			<a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+		  </li>
+		{% endfor %}
+	  </ul>
+	{% else %}
+		<p>There are no tags in this note.</p>
+	{% endif %}
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Note:</h4>
+	{{ note.value }}
+  </div>
+{% endblock %}
