@@ -1,16 +1,9 @@
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/items.html
-
 import scrapy
-from scrapy_djangoitem import DjangoItem
-from .models import Comand
 
 
 class ScrapperItem(scrapy.Item):
-    django_model = Comand
     rating = scrapy.Field()
+    logo = scrapy.Field()
     name = scrapy.Field()
     games = scrapy.Field()
     wins = scrapy.Field()
@@ -19,3 +12,4 @@ class ScrapperItem(scrapy.Item):
     goals_in = scrapy.Field()
     goals_out = scrapy.Field()
     scores = scrapy.Field()
+    difference = scrapy.Field()

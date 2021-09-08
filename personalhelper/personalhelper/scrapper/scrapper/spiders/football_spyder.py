@@ -8,8 +8,9 @@ class FootballSpider(scrapy.Spider):
     #  'football.ua'
     ]
 
-    start_urls = ['https://terrikon.com/football/ukraine/championship/'
-    # 'https://football.ua/ukraine/table.html'
+    start_urls = [
+        # 'https://terrikon.com/football/ukraine/championship/'
+    'https://football.ua/ukraine/table.html'
     ]
 
     # def __init__(self, *args, **kwargs):
@@ -20,10 +21,9 @@ class FootballSpider(scrapy.Spider):
 
 
     def parse(self, response):
-        rows = response.xpath('//*[@id="champs-table"]//tr')
+        rows = response.xpath('//*[@id="champs-table"]//tr') 
         comand = ScrapperItem()
         for row in rows[1:]:
-            
             # comand = {}
             comand['rating'] = row.css('td::text').get()[:-1]
             comand['name'] = row.xpath('td[@class="team"]/a/text()').get()
@@ -35,4 +35,25 @@ class FootballSpider(scrapy.Spider):
             comand['goals_out'] = row.xpath('//td[contains(text(), "-")]/following-sibling::td/text()').get()
             comand['scores'] = row.css('strong::text').get()
         
+            yield comand
+
+
+
+
+        rows = response.xpath('//*[@class="main-tournament-table"]//tr')
+        comand = ScrapperItem()
+        for row in rows[1:]:
+            # comand = {}
+            comand['rating'] = row.xpath('td[@class="num"]/text()').get()
+            comand['logo'] = row.css('img').attrib['src']
+            comand['name'] = row.xpath('td[@class="team"]/a/text()').get()
+            comand['games'] = row.xpath('td[@class="games"]/text()').get()
+            comand['wins'] = row.xpath('td[@class="win"]/text()').get()        
+            comand['draws'] = row.xpath('td[@class="draw"]/text()').get()        
+            comand['losses'] = row.xpath('td[@class="lose"]/text()').get()        
+            comand['goals_in'] = row.xpath('td[@class="goal"]/text()').get()        
+            comand['goals_out'] = row.xpath('td[@class="miss"]/text()').get()        
+            comand['difference'] = row.xpath('td[@class="diff"]/text()').get()        
+            comand['scores'] = row.xpath('td[@class="score"]/text()').get()        
+
             yield comand
