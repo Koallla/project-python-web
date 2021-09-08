@@ -79,14 +79,12 @@ WSGI_APPLICATION = 'personalhelper.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase.db',
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'web-project',
-        # 'USER': 'postgres',
-        # 'PASSWORD': 'postgres',
-        # 'HOST': '82.193.125.109',
-        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'web-project',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '82.193.125.109',
+        'PORT': '5432',
     }
 }
 
