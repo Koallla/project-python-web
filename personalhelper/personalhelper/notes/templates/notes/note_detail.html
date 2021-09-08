@@ -4,7 +4,7 @@
 {% block content %}
 <h1>Title: {{ note.title }}</h1>
 
-<p><strong>Author:</strong> username</p> <!-- author detail link not yet defined -->
+<p><strong>Author:</strong> {{ note.owner }} </p> <!-- author detail link not yet defined -->
 <p><strong>Tags:</strong></p>
 {% if note.tags.all %}
 <ul>
@@ -21,5 +21,12 @@
 <div style="margin-left:20px;margin-top:20px">
 	<h4>Note:</h4>
 	{{ note.value }}
+	<<<<<<< HEAD </div>
+		=======
 </div>
+<ul>
+	<li><a href="{% url 'note-update' note.id %}">Note update</a></li>
+	<li><a href="{% url 'note-delete' note.id %}">Note delete</a></li>
+</ul>
+>>>>>>> 67ee54b06ace65ffa2e64530e68fa327d6047f8c
 {% endblock %}
