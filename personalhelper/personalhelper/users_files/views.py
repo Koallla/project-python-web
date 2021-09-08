@@ -21,7 +21,7 @@ def add_file(request):
         print(mimetypes.guess_type(filename.name))
         if form.is_valid():
             form.save()
-        return redirect('contacts:index')
+        return redirect('userfiles')
     else:
         form = UserFileAdd(initial={'user': request.user})
     return render(request, 'users_files/add.html', {'form': form})
