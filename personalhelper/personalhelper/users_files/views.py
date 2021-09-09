@@ -65,7 +65,7 @@ def files_by_categorie(request, category_name):
     userfile_list = []
     userfile_list = UserFile.objects.filter(
         user_id=request.user.id).filter(category=category_name)
-    return render(request, 'users_files/userfile_list.html', {'userfile_list': userfile_list, 'filtered': True})
+    return render(request, 'users_files/userfile_list.html', {'userfile_list': userfile_list, 'filtered': True, 'category': category_name})
 
 
 def files_all(request):
