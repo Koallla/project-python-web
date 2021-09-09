@@ -1,10 +1,10 @@
 from django import forms
-from . models import Note
+from . models import Note, Tag
 
 class NoteCreateForm(forms.ModelForm):
     class Meta:
         model = Note
-        exclude = ('owner',)
+        fields = ['title', 'value', 'tags']
 
     def __init__(self, *args, **kwargs):
         self.owner = kwargs.pop('owner')
@@ -19,4 +19,15 @@ class NoteCreateForm(forms.ModelForm):
 class NoteUpdateForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ['title', 'tags', 'value']
+        fields = ['title', 'value', 'tags']
+        
+class AddTagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ['title']
+        
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if Tag.objects.filter(title=title).exists():
+            raise forms.ValidationError("You have already written a tag with same title.")
+        return title

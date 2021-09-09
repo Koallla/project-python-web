@@ -5,17 +5,18 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('notes/', views.NoteListView.as_view(), name='notes:notes'),
-    path('notes/<int:pk>', views.NoteDetailView.as_view(),
-         name='note-detail'),
+    path('note/', views.NoteListView.as_view(), name='note'),
+    path('note/<int:pk>/', views.NoteDetailView.as_view(), 
+        name='note-detail'),
     path('tags/', views.TagListView.as_view(), name='tags'),
-    path('tags/<int:pk>', views.TagDetailView.as_view(), name='tag-detail'),
+    path('tags/<int:pk>/', views.TagDetailView.as_view(), name='tag-detail'),
 ]
 
 urlpatterns += [
-    path('notes/create/', views.NoteCreateView.as_view(), name='note-create'),
-    path('notes/update/<int:pk>/', views.NoteUpdate.as_view(),
+    path('note/create/', views.NoteCreateView.as_view(), name='note-create'),
+    path('note/update/<int:pk>/', views.NoteUpdate.as_view(),
          name='note-update'),
-    path('notes/<int:pk>/delete/', views.NoteDelete.as_view(),
+    path('note/<int:pk>/delete/', views.NoteDelete.as_view(),
          name='note-delete'),
+    path('notes/create_tag/', views.TagCreate.as_view(), name = 'tag-create'),
 ]
