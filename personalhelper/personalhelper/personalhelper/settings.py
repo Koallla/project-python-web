@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'contacts.apps.ContactsConfig',
     'notes.apps.NotesConfig',
     'users_files.apps.UsersFilesConfig',
-    'scrapper.apps.ScrapperConfig',
+    'scraper.apps.ScraperConfig',
 ]
 
 MIDDLEWARE = [
