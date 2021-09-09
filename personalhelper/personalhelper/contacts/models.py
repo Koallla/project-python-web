@@ -5,6 +5,7 @@ from django.db.models.deletion import CASCADE
 from storages.backends.sftpstorage import SFTPStorage
 from django.contrib.auth.models import User
 SFS = SFTPStorage()
+from django.core import validators
 
 
 class Contact(models.Model):
@@ -23,7 +24,7 @@ class Contact(models.Model):
 
 
 class Phone(models.Model):
-    phone = models.CharField(max_length=10)
+    phone = phone = models.CharField(max_length=10, validators=[validators.RegexValidator(regex='\d{10}$', message='Phone number must have 10 digits')])
     contact = models.ForeignKey(
         'Contact', on_delete=models.CASCADE)
 

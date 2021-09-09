@@ -7,7 +7,7 @@
     <h1>Update contact</h1>
     <p>
     <form action="" method="POST">
-        <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
+        <a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a>
         {% csrf_token %}
         {{ form.as_p }}
         <input type='submit' value='Submit'>

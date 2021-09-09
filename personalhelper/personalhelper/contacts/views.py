@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 from django.contrib.auth.decorators import login_required
 import re
+from datetime import date, datetime
 
 # Create your views here.
 import mimetypes
@@ -107,27 +108,33 @@ class ContactDeleteView(DeleteView):
 def search(request):
 
     if request.method == 'POST':
-        contact_list = Contact.objects.all()
-        # contact = Contact.objects.get(headline__contains = )
+        contact_list = Contact.objects.filter(user= request.user.id)
+        
         form = SearchForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data.get('contact_name')
 
             # print(name)
             try:
-                contact = Contact.objects.get(contact_name__contains=name)
+                contact = Contact.objects.get(contact_name__contains=name, user= request.user.id)
 
                 template = loader.get_template('contacts/show_contact.html')
                 context = {'record_list': contact}
                 return HttpResponse(template.render(context, request))
             except:
+                error = 'No contats with sush name. Search is case sensitive'
                 form = SearchForm()
-                return render(request, 'contacts/search_contact.html', {'form': form})
-
-            # return redirect('/contacts/')
+                return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
+        else:
+            error = 'No contats with sush name. Search is case sensitive'
+            form = SearchForm()
+            return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
+    
     else:
+        message = 'Search is case sensitive'
         form = SearchForm()
-        return render(request, 'contacts/search_contact.html', {'form': form})
+        return render(request, 'contacts/search_contact.html', {'form': form, 'message': message})
+
 
 
 @login_required(login_url='login')
@@ -137,29 +144,51 @@ def add_phone(request, id):
 
     try:
         person = Contact.objects.get(id=id)
-        # print(1)
-
+    
         if request.method == "POST":
-            # print(2)
             forma = PhoneForm(request.POST)
-            # print(6)
-            print(forma)
-            phone = forma.cleaned_data.get('phone')
-            # print(3)
-            phone1 = Phone(phone=phone, contact=person)
-            phone1.save()
-            return HttpResponseRedirect("/")
+            if forma.is_valid():
+            
+                phone = forma.cleaned_data.get('phone')
+                phone1 = Phone(phone=phone, contact=person)
+                phone1.save()
+                return HttpResponseRedirect("/")
+            else:
+                error = 'Enter the valid phone. Phone number must have 10 digits'
+                form = PhoneForm()
+                return render(request, 'contacts/add_phone.html', {'form': form, 'error': error})
         else:
-            # print(4)
             return render(request, 'contacts/add_phone.html', {'form': form})
     except:
-        # print(5)
-
+        error = 'This contact dos not Exists'
         form = PhoneForm()
-        return render(request, 'contacts/add_phone.html', {'form': form})
+        return render(request, 'contacts/add_phone.html', {'form': form, 'error': error})
 
 
-class AddPhone(CreateView):
-    model = Phone
-    template_name = 'contacts/add_phone.html'
-    fields = ['phone', 'contact']
+def count_days(d_now, d_birth):
+        if d_now > d_birth:
+            d_birth = date(d_birth.year + 1, d_birth.month, d_birth.day)
+        return (d_birth - d_now).days
+
+@login_required
+def days_to_birthday(request, id):
+    
+    birthday = Contact.objects.get(id=id)
+        
+    if birthday.contact_birthday != None:
+        
+        result = count_days(datetime.now().date(), date(year=datetime.now().year, month=int(birthday.contact_birthday.month), day=int(birthday.contact_birthday.day)))
+
+        template = loader.get_template('contacts/bithday.html')
+        context = {
+        'record': birthday,
+        'birthday': result
+    }
+        return HttpResponse(template.render(context, request))
+    else:
+        error = "This contact has not date of birthday"
+        template = loader.get_template('contacts/bithday.html')
+        context = {
+        'error': error,
+    }
+        return HttpResponse(template.render(context, request))
