@@ -2,6 +2,10 @@
 
 {% block title %}Detail contact{% endblock %}
 
+{% block header %}
+<h1>Detail contact, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
+
 {% block content %}
 <div class="features">
   <h1>{{contact.contact_name }}</h1>
@@ -18,6 +22,7 @@
   <a class='btn btn-warning' href="/contacts/show_contacts/add_phone/{{contact.id}}">ADD phone</a>
   <br><br>
   <a class='btn btn-warning' href="/contacts/show_contacts/{{contact.id}}/daystobth">Day to birthday</a>
+
   </p>
 </div>
 {% endblock %}

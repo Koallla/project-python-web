@@ -1,6 +1,11 @@
 {% extends 'contacts/layout.html' %}
 
-{% block title %}Search{% endblock %}
+{% block title %}Search contact{% endblock %}
+
+{% block header %}
+<h1>Search contact, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
+
 {% block content %}
 <h1>Search contact</h1>
 <form action="" method="POST">

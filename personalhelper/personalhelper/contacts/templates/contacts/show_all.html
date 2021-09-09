@@ -1,6 +1,9 @@
 {% extends 'contacts/layout.html' %}
 
-{% block title %}Contacts{% endblock %}
+{% block title %}Show all{% endblock %}
+{% block header %}
+<h1>Contacts in your Adressbook, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
 {% block content %}
     <div class="features">
         <h1>Contacts in your Adressbook</h1>

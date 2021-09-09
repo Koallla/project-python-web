@@ -2,17 +2,18 @@
 
 {% block title %}Contacts{% endblock %}
 
+{% block header %}
+<h1>Hello, {{ user.username|default:'Guest'}}</h1>
+{% endblock %}
+
 {% block content %}
 <div class="features">
-    <h1>Hello, {{ user.username|default:'Guest'}}</h1>
+
     <p>
         {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}">Logout</a>
-        <a href="{% url 'password_change' %}">Change password</a>
-        <a href="{% url 'userfiles' %}">Show all files</a>
-        <br>
         <a class='btn btn-warning' type="submit" href="{% url 'contacts:add-contact' %}" target='_self'>Add contact </a>
-        <a class='btn btn-warning' type="submit" href="{% url 'contacts:show-contacts' %}" target='_self'>Show contacts</a>
+        <a class='btn btn-warning' type="submit" href="{% url 'contacts:show-contacts' %}" target='_self'>Show
+            contacts</a>
         <a class='btn btn-warning' type="submit" href="{% url 'contacts:search-contact' %}" target='_self'>Search
             contacts </a>
         {% else %}

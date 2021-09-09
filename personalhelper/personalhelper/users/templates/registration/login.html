@@ -1,14 +1,21 @@
 {% extends 'contacts/layout.html' %}
+{% block title %}Login{% endblock %}
+
+{% block header %}
+<h1>Login, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
 
 {% block content %}
-
-<h2>Login</h2>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Login">
-</form>
-<a href="{% url 'contacts:index' %}"> Back to HOME </a>
-<a href="{% url 'users:register' %}">Register</a>
-<a href="{% url 'users:password_reset' %}">Reset password</a>
-{% endblock content %}
+<div class="features">
+    <p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login">
+    </form>
+    <a href="{% url 'contacts:index' %}"> Back to HOME </a>
+    <a href="{% url 'users:register' %}">Register</a>
+    <a href="{% url 'users:password_reset' %}">Reset password</a>
+    </p>
+</div>
+{% endblock %}

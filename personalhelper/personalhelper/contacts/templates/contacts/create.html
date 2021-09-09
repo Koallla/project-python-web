@@ -1,12 +1,21 @@
 {% extends 'contacts/layout.html' %}
-{% block title %}Add phone{% endblock %}
+
+{% block title %}Create{% endblock %}
+
+{% block header %}
+<h1>Create, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
 
 {% block content %}
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit">
-</form>
+<div class="features">
+    <p>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+    </p>
+</div>
 {% endblock %}
