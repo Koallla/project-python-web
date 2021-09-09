@@ -11,7 +11,8 @@ class ScrapperPipeline:
         self.file.close()
 
     def process_item(self, item, spider):
-
-        line = json.dumps(ItemAdapter(item).asdict(), ensure_ascii=False) + "\n"
-        self.file.write(line)
-        return item
+        adapter = ItemAdapter(item)
+        if adapter.get('logo'):
+            line = json.dumps(ItemAdapter(item).asdict(), ensure_ascii=False) + "\n"
+            self.file.write(line)
+            return item
