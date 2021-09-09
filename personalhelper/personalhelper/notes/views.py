@@ -1,4 +1,4 @@
-from .forms import NoteCreateForm, NoteUpdateForm
+from .forms import NoteCreateForm, NoteUpdateForm, AddTagForm
 from django.conf import settings
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -44,7 +44,7 @@ class TagDetailView(LoginRequiredMixin, generic.DetailView):
 def index(request):
     """View function for home page for notes."""
     notes = Note.objects.all()
-    notes_count = Note.objects.all().count()
+    notes_count = Note.objects.filter(owner = request.user).count()
 
     context = {'notes': notes, 'notes_count': notes_count}
 
@@ -84,7 +84,17 @@ class NoteUpdate(LoginRequiredMixin, UpdateView):
 
 class NoteDelete(LoginRequiredMixin, DeleteView):
     model = Note
-    success_url = reverse_lazy('notes')
+    success_url = reverse_lazy('notes:note')
 
     def get_login_url(self) -> str:
         return settings.LOGIN_REDIRECT_URL
+        
+class TagCreate(LoginRequiredMixin, CreateView):
+    model = Tag
+    form_class = AddTagForm
+    template_name = 'notes/tag_form.html'
+    
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.save()
+        return HttpResponseRedirect(reverse_lazy('notes:note-create'))

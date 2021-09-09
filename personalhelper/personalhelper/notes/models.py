@@ -32,4 +32,4 @@ class Note(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a detail record for this Note."""
-        return reverse('note-detail', args=[str(self.id)])
+        return reverse('notes:note-detail', args=[str(self.id)])
