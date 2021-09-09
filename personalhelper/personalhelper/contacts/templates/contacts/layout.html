@@ -30,6 +30,11 @@
 		{% endif %}
 	</aside>
 	<main>
+		<header class="page-header">
+			{% block header %}
+
+			{% endblock %}
+		</header>
 		{% block content %}
 		{% endblock %}
 	</main>

@@ -12,6 +12,28 @@ aside {
   border-right: 5px solid #4d4d4d;
 }
 
+header.page-header {
+  background: #2e2b3b no-repeat left/cover
+    url(/media/examples/puppy-header-logo.jpg);
+  display: flex;
+  height: 100px;
+  min-width: 120px;
+  align-items: center;
+  color: #fff;
+  text-shadow: #000 0 0 0.2em;
+  border-bottom: 5px solid #4d4d4d;
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+header.page-header > h1 {
+  text-align: center;
+  margin: auto;
+}
+
 aside img {
   width: 80px;
   float: left;
@@ -67,12 +89,20 @@ main .features p {
 a {
   color: #fda80d;
   text-decoration: underline;
+  font-size: medium;
+  margin: 1em;
 }
 
-label,
-input {
-  display: block;
+form {
+  margin-left: 20%;
+  width: 500px;
+  margin-top: 50px;
 }
+
+form p {
+  text-align: right;
+}
+
 span.helptext {
   display: none;
 }
