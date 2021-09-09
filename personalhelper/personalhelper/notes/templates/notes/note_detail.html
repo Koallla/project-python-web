@@ -3,10 +3,10 @@
 {% block title %}Notes details{% endblock %}
 {% block header %}
 <h1>Your notes, {{user.username|default:'Guest'}}</h1>
-<li style = 'margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:note-create' %}">Create Note</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:note-create' %}">Create Note</a></li>
 {% endblock %}
 
 {% block content %}
@@ -30,14 +30,11 @@
 		<h4>Note:</h4>
 		{{ note.value }}
 	</div>
-</div>
-{% endblock %}
-
-{% block footer %}
-<div>
-<ul>
-	<li style = 'margin-left: 20px'><a href="{% url 'notes:note-update' note.id %}">Note update</a></li>
-	<li style = 'margin-left: 20px'><a href="{% url 'notes:note-delete' note.id %}">Note delete</a></li>
-</ul>
+	<div>
+		<ul>
+			<li style='margin-left: 20px'><a href="{% url 'notes:note-update' note.id %}">Note update</a></li>
+			<li style='margin-left: 20px'><a href="{% url 'notes:note-delete' note.id %}">Note delete</a></li>
+		</ul>
+	</div>
 </div>
 {% endblock %}

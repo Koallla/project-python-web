@@ -3,10 +3,10 @@
 
 {% block header %}
 <h1>Your notes, {{user.username|default:'Guest'}}</h1>
-<li style = 'margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:note-create' %}">Create Note</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:note-create' %}">Create Note</a></li>
 {% endblock %}
 
 
@@ -18,6 +18,9 @@
     <table>
       {{ form.as_table }}
     </table>
+    <div>
+      <a href="{% url 'notes:tag-create' %}">Create Tag</a>
+    </div>
     <input type="submit" value="Submit">
   </form>
   </p>
@@ -25,5 +28,5 @@
 {% endblock %}
 
 {% block footer %}
-<div style = 'position: absolute; left: 1000px; bottom: 300px'><a href="{% url 'notes:tag-create' %}">Create Tag</a></div>
+
 {% endblock %}
