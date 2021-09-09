@@ -1,9 +1,9 @@
 import scrapy
 from crawling.items import ScrapperItem
-from scrapy.spiders import CrawlSpider
+# from scrapy.spiders import CrawlSpider
 
 
-class FootballSpider(CrawlSpider):
+class FootballSpider(scrapy.Spider):
     name = "football"
     allowed_domains = ['football.ua', 'terrikon.com']
 
@@ -20,11 +20,11 @@ class FootballSpider(CrawlSpider):
     def parse(self, response):
         rows = response.xpath('//*[@class="main-tournament-table"]//tr')
         rows2 = response.xpath('//*[@id="champs-table"]//tr') 
-        comand = ScrapperItem()
+        
         
         
         for row in rows[1:]:
-            # comand = {}
+            comand = ScrapperItem()
             comand['rating'] = row.xpath('td[@class="num"]/text()').get()
             comand['logo'] = row.css('img').attrib['src']
             comand['name'] = row.xpath('td[@class="team"]/a/text()').get()
@@ -41,7 +41,7 @@ class FootballSpider(CrawlSpider):
 
 
         for row in rows2[1:]:
-            # comand2 = {}
+            comand = ScrapperItem()
             comand['rating'] = row.css('td::text').get()[:-1]
             comand['name'] = row.xpath('td[@class="team"]/a/text()').get()
             comand['games'] = row.xpath('td[@class="team"]/following-sibling::td/text()').get()
