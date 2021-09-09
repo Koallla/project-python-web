@@ -82,7 +82,8 @@ def show_all(request):
     context = {
         'record_list': contact_list
     }
-    return HttpResponse(template.render(context, request))
+    print(context)
+    return render(request, 'contacts/show_all.html', {'record_list': contact_list})
 
 
 class ContactDetailView(DetailView):
@@ -108,33 +109,30 @@ class ContactDeleteView(DeleteView):
 def search(request):
 
     if request.method == 'POST':
-        contact_list = Contact.objects.filter(user= request.user.id)
-        
+        contact_list = Contact.objects.filter(user=request.user.id)
+        # print(contact_list)
         form = SearchForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data.get('contact_name')
 
             # print(name)
             try:
-                contact = Contact.objects.get(contact_name__contains=name, user= request.user.id)
-
-                template = loader.get_template('contacts/show_contact.html')
-                context = {'record_list': contact}
-                return HttpResponse(template.render(context, request))
+                contacts = contact_list.filter(contact_name__contains=name)
+                print(contacts)
+                return render(request, 'contacts/show_all.html', {'record_list': contacts, 'mode': 'search'})
             except:
-                error = 'No contats with sush name. Search is case sensitive'
+                error = 'No contacts with such name. Search is case sensitive'
                 form = SearchForm()
                 return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
         else:
             error = 'No contats with sush name. Search is case sensitive'
             form = SearchForm()
             return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
-    
+
     else:
         message = 'Search is case sensitive'
         form = SearchForm()
         return render(request, 'contacts/search_contact.html', {'form': form, 'message': message})
-
 
 
 @login_required(login_url='login')
@@ -144,11 +142,11 @@ def add_phone(request, id):
 
     try:
         person = Contact.objects.get(id=id)
-    
+
         if request.method == "POST":
             forma = PhoneForm(request.POST)
             if forma.is_valid():
-            
+
                 phone = forma.cleaned_data.get('phone')
                 phone1 = Phone(phone=phone, contact=person)
                 phone1.save()
@@ -166,29 +164,31 @@ def add_phone(request, id):
 
 
 def count_days(d_now, d_birth):
-        if d_now > d_birth:
-            d_birth = date(d_birth.year + 1, d_birth.month, d_birth.day)
-        return (d_birth - d_now).days
+    if d_now > d_birth:
+        d_birth = date(d_birth.year + 1, d_birth.month, d_birth.day)
+    return (d_birth - d_now).days
+
 
 @login_required
 def days_to_birthday(request, id):
-    
+
     birthday = Contact.objects.get(id=id)
-        
+
     if birthday.contact_birthday != None:
-        
-        result = count_days(datetime.now().date(), date(year=datetime.now().year, month=int(birthday.contact_birthday.month), day=int(birthday.contact_birthday.day)))
+
+        result = count_days(datetime.now().date(), date(year=datetime.now().year, month=int(
+            birthday.contact_birthday.month), day=int(birthday.contact_birthday.day)))
 
         template = loader.get_template('contacts/bithday.html')
         context = {
-        'record': birthday,
-        'birthday': result
-    }
+            'record': birthday,
+            'birthday': result
+        }
         return HttpResponse(template.render(context, request))
     else:
         error = "This contact has not date of birthday"
         template = loader.get_template('contacts/bithday.html')
         context = {
-        'error': error,
-    }
+            'error': error,
+        }
         return HttpResponse(template.render(context, request))

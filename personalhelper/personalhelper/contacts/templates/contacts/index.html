@@ -1,5 +1,5 @@
 {% extends 'contacts/layout.html' %}
-
+{% load static %}
 {% block title %}Contacts{% endblock %}
 
 {% block header %}
@@ -17,7 +17,8 @@
         <a class='btn btn-warning' type="submit" href="{% url 'contacts:search-contact' %}" target='_self'>Search
             contacts </a>
         {% else %}
-        <a href="{% url 'login' %}">Login</a>
+
+        <a href="{% url 'login' %}"><img src="{% static 'contacts/img/logo.jpg' %}" alt="Лого"></a>
         {% endif %}
     </p>
 </div>
