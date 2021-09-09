@@ -1,9 +1,11 @@
 {% extends 'contacts/layout.html' %}
 
-{% block title %}Contacts{% endblock %}
+{% block title %}Show all{% endblock %}
+{% block header %}
+<h1>Contacts in your Adressbook, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
 {% block content %}
 <div class="features">
-    <h1>Contacts in your Adressbook</h1>
     <p>
         <a class='btn btn-warning' type="submit" href='{% url "contacts:index" %}' target='_self'>Main page </a>
         <br>
@@ -21,6 +23,7 @@
     {% else %}
     <p>No contacts are available.</p>
     {% endif %}
+    <a class='btn btn-warning' type="submit" href="{% url 'contacts:add-contact' %}" target='_self'>Add contact </a>
     </p>
 </div>
 {% endblock %}

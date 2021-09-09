@@ -2,6 +2,10 @@
 
 {% block title %}Detail contact{% endblock %}
 
+{% block header %}
+<h1>Detail contact, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
+
 {% block content %}
 <div class="features">
   <h1>{{contact.contact_name }}</h1>
@@ -12,9 +16,9 @@
   <p>Birthday - {{contact.contact_birthday}}</p>
 
   <a href="/contacts/show_contacts/{{contact.id}}/delete">Delete contact</a>
-  <br><br>
+
   <a href="/contacts/show_contacts/{{contact.id}}/update">Update contact</a>
-  <br><br>
+
   <a href="/contacts/show_contacts/add_phone/{{contact.id}}">ADD phone</a>
   </p>
 </div>

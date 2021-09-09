@@ -4,9 +4,10 @@
 
 {% block content %}
 <h1>Helper Notes Main Page</h1>
-<p>Welcome to Helper!</p>
 <p>The Helper has the following notes counts:</p>
 <ul>
   <li><strong>Notes count:</strong> {{ notes_count }}</li>
 </ul>
+<li><a href="{% url 'notes:tags' %}">Tags</a></li>
+<li><a href="{% url 'notes:note-create' %}">Create Note</a></li>
 {% endblock %}

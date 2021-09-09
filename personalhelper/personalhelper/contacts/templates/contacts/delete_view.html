@@ -2,17 +2,20 @@
 
 {% block title %}Delete contact{% endblock %}
 
+{% block header %}
+<h1>Delete contact, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
+
 {% block content %}
-	<div class="features">
-		<h1>Delete contact</h1>
-		    <p>
-                <form action = "" method="POST">
-                    <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
-                        {% csrf_token %}
-                        <br>
-                        <br>
-                        <button type = 'submit'>Delete contact</button>     
-                </form>
-            </p>
-    </div>
+<div class="features">
+    <p>
+    <form action="" method="POST">
+        <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
+        {% csrf_token %}
+        <br>
+        <br>
+        <button type='submit'>Delete contact</button>
+    </form>
+    </p>
+</div>
 {% endblock %}

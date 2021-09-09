@@ -1,11 +1,20 @@
-{% extends "base.html" %}
+{% extends 'contacts/layout.html' %}
+{% block title %}Note{% endblock %}
+
+{% block header %}
+<h1>Note, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
 
 {% block content %}
+<div class="features">
+  <p>
   <form action="" method="post">
     {% csrf_token %}
     <table>
-    {{ form.as_table }}
+      {{ form.as_table }}
     </table>
     <input type="submit" value="Submit">
   </form>
+  </p>
+</div>
 {% endblock %}

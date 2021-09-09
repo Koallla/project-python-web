@@ -59,3 +59,17 @@ def delete_file(request, id):
     file = UserFile.objects.get(pk=id)
     file.delete()
     return redirect('userfiles')
+
+
+def files_by_categorie(request, category_name):
+    userfile_list = []
+    userfile_list = UserFile.objects.filter(
+        user_id=request.user.id).filter(category=category_name)
+    return render(request, 'users_files/userfile_list.html', {'userfile_list': userfile_list, 'filtered': True})
+
+
+def files_all(request):
+    userfile_list = []
+    userfile_list = UserFile.objects.filter(
+        user_id=request.user.id)
+    return render(request, 'users_files/userfile_list.html', {'userfile_list': userfile_list, 'filtered': False})

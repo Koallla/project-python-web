@@ -1,11 +1,20 @@
 {% extends 'contacts/layout.html' %}
+
 {% block title %}Add phone{% endblock %}
 
-{% block content %}
-<form action="" method="POST">
-    <a class='button' type="submit" href="/contacts/" target='_blank'>Main page </a>
-    {% csrf_token %}
-    {{ form.as_p }}
+{% block header %}
+<h1>Add phone, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
 
-    <input type='submit' value='Submit'>
-    {% endblock %}
+{% block content %}
+<div class="features">
+    <p>
+    <form action="" method="POST">
+        <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type='submit' value='Submit'>
+        </p>
+</div>
+{% endblock %}

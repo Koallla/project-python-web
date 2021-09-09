@@ -1,14 +1,33 @@
-{% extends "base.html" %}
+{% extends 'contacts/layout.html' %}
+{% block title %}Note{% endblock %}
+
+{% block header %}
+<h1>{{ note.title }}, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
 
 {% block content %}
+<div class="features">
+  <p>
+  <p><strong>Author:</strong> username</p> <!-- author detail link not yet defined -->
+  <p><strong>Tags:</strong></p>
+  {% if note.tags.all %}
+  <ul>
+    {% for tag in note.tags.all %}
+    <li>
+      <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>There are no tags in this note.</p>
+  {% endif %}
 
-<h1>Delete Note</h1>
-
-<p>Are you sure you want to delete the note: {{ note.title }}?</p>
-
-<form action="" method="POST">
-  {% csrf_token %}
-  <input type="submit" value="Yes, delete.">
-</form>
-
+  <h4>Note:</h4>
+  {{ note.value }}
+  </p>
+</div>
+<ul>
+  <li><a href="{% url 'note-update' note.id %}">Note update</a></li>
+  <li><a href="{% url 'note-delete' note.id %}">Note delete</a></li>
+</ul>
 {% endblock %}
