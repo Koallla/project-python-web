@@ -5,25 +5,25 @@
 <h1>Contacts in your Adressbook, {{user.username|default:'Guest'}}</h1>
 {% endblock %}
 {% block content %}
-<div class="features">
-    <p>
-        <a class='btn btn-warning' type="submit" href='{% url "contacts:index" %}' target='_self'>Main page </a>
-        <br>
-        {% if record_list %}
-    <h2>All Contacts:</h2>
-    <ul>
-        {% for record in record_list %}
-
-        <li> {{ record }} --- {{record.phone_set.first}}
-            <a href="/contacts/show_contacts/{{record.id}}">Show detail</a>
-        </li><br>
-
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No contacts are available.</p>
-    {% endif %}
-    <a class='btn btn-warning' type="submit" href="{% url 'contacts:add-contact' %}" target='_self'>Add contact </a>
-    </p>
-</div>
+    <div class="features">
+        <h1>Contacts in your Adressbook</h1>
+            <p>
+                <a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a>
+                    <br>
+                    {% if record_list %}
+                    <h2>All Contacts:</h2>
+                        <ul>
+                        {% for record in record_list %}
+                        
+                            <li> {{ record.contact_name }} ----{{record.phone_set.first}}
+                            <a class='btn btn-warning' href = "/contacts/show_contacts/{{record.id}}">Show detail</a>
+                            </li><br>
+                        
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                    <p>No contacts are available.</p>
+                    {% endif %}
+            </p>
+    </div>
 {% endblock %}

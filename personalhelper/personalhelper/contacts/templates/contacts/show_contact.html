@@ -7,15 +7,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="features">
-    <p>
-        <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
+<a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a>
 
-    <h1>{{record_list.contact_name }}</h1>
-    <p>{{record_list.contact_phone}}</p>
-    <p>Email - {{record_list.contact_email}}</p>
-    <p>Adress - {{record_list.contact_adress}}</p>
-    <p>Birthday - {{record_list.contact_birthday}}</p>
-    </p>
-</div>
-{% endblock %}
+<h1>{{record_list.contact_name }}</h1>
+<p>{{record_list.contact_phone}}</p>
+<p>Email - {{record_list.contact_email}}</p>
+<p>Adress - {{record_list.contact_adress}}</p>
+<p>Birthday - {{record_list.contact_birthday}}</p>
+{% endblock content %}
