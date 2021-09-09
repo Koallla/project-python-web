@@ -20,8 +20,9 @@ class Tag(models.Model):
 class Note(models.Model):
     title = models.CharField(max_length=20)
     tags = models.ManyToManyField(Tag)
-    value = models.TextField(max_length = 1000, default = 'LaLaLa')
-    owner = models.ForeignKey(User, on_delete = models.SET_NULL, null = True, blank = True)
+    value = models.TextField(max_length=1000, default='LaLaLa')
+    owner = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         ordering = ['title']
@@ -31,4 +32,4 @@ class Note(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a detail record for this Note."""
-        return reverse('notes:note-detail', args=[str(self.id)])
+        return reverse('note-detail', args=[str(self.id)])

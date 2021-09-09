@@ -10,6 +10,10 @@
     <p>
 
         {% if userfile_list %}
+        {% if filtered %}
+    <h2>Files in category - {{category}}</h2>
+    {% endif %}
+
     <ul>
         <table class="file-view">
             <tr>
@@ -20,9 +24,11 @@
 
             {% for file in userfile_list %}
             <tr>
-                <td><a href="{% url 'category' file.category %}">{{ file.category }} </a></td>
+                <td><a class='btn btn-warning' type="submit" href="{% url 'category' file.category %}">
+                        {{file.category}} </a>
+                </td>
                 <td><a href="{{ file.get_absolute_url }}">{{ file }}</a></td>
-                <td><a href="{% url 'delete-file' file.id %}">
+                <td><a class='btn btn-warning' type="submit" href="{% url 'delete-file' file.id %}">
                         Delete file</a></td>
             </tr>
             {% endfor %}
