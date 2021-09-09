@@ -4,9 +4,11 @@
 {% block content %}
 <h1>Search contact</h1>
 <form action="" method="POST">
-    <a class='button' type="submit" href="/contacts/" target='_blank'>Main page </a>
+    <a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a><br>
     {% csrf_token %}
+    <h5>{{message}}</h5>
     {{ form.as_p }}
 
+    {{error}}
     <input type='submit' value='Submit'>
     {% endblock content %}
