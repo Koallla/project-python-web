@@ -9,8 +9,10 @@
 {% block content %}
 <div class="features">
   <h1>{{contact.contact_name }}</h1>
-  
-  <p>{{contact.phone_set.all}} </p>
+
+  {% for phone in contact.phone_set.all %}
+  {{ phone }} <br>
+  {% endfor %}
   <p>Email - {{contact.contact_email}}</p>
   <p>Adress - {{contact.contact_adress}}</p>
   <p>Birthday - {{contact.contact_birthday}}</p>

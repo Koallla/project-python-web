@@ -1,29 +1,32 @@
 {% extends 'contacts/layout.html' %}
 
-{% block title %}Show all{% endblock %}
+{% block title %}Show all{% endblock title%}
 {% block header %}
 <h1>Contacts in your Adressbook, {{user.username|default:'Guest'}}</h1>
-{% endblock %}
+{% endblock header%}
 {% block content %}
-    <div class="features">
-        <h1>Contacts in your Adressbook</h1>
-            <p>
-                <a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a>
-                    <br>
-                    {% if record_list %}
-                    <h2>All Contacts:</h2>
-                        <ul>
-                        {% for record in record_list %}
-                        
-                            <li> {{ record.contact_name }} ----{{record.phone_set.first}}
-                            <a class='btn btn-warning' href = "/contacts/show_contacts/{{record.id}}">Show detail</a>
-                            </li><br>
-                        
-                        {% endfor %}
-                        </ul>
-                    {% else %}
-                    <p>No contacts are available.</p>
-                    {% endif %}
-            </p>
-    </div>
-{% endblock %}
+<div class="features">
+    {% if mode %}
+    <h2>Found contacts in your Adressbook</h2>
+    {% else %}
+    <h2>All contacts in your Adressbook</h2>
+    {% endif %}
+
+    {{mode}}
+
+    {% if record_list %}
+    <ul>
+        {% for record in record_list %}
+
+        <li> {{ record.contact_name }} ----{{record.phone_set.first}}
+            <a class='btn btn-warning' href="/contacts/show_contacts/{{record.id}}">Show detail</a>
+        </li><br>
+
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No contacts are available.</p>
+    {% endif %}
+    <p><a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a></p>
+</div>
+{% endblock content%}
