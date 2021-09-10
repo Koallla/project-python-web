@@ -1,6 +1,7 @@
 import scrapy
-from crawling.items import ScrapperItem
-# from scrapy.spiders import CrawlSpider
+# from crawling.items import ScrapperItem
+from crawling.crawling.items import ScrapperItem
+
 
 
 class FootballSpider(scrapy.Spider):
