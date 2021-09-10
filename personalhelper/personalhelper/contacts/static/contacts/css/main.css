@@ -12,6 +12,28 @@ aside {
   border-right: 5px solid #4d4d4d;
 }
 
+header.page-header {
+  background: #2e2b3b no-repeat left/cover;
+  /* url(/media/examples/puppy-header-logo.jpg); */
+  display: flex;
+  height: 100px;
+  min-width: 120px;
+  align-items: center;
+  color: #fff;
+  text-shadow: #000 0 0 0.2em;
+  border-bottom: 5px solid #4d4d4d;
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+header.page-header > h1 {
+  text-align: center;
+  margin: auto;
+}
+
 aside img {
   width: 80px;
   float: left;
@@ -73,6 +95,29 @@ label,
 input {
   display: block;
 }
+
+.page-content {
+  display: flex;
+  flex-direction: row;
+}
+
 span.helptext {
   display: none;
+}
+
+.features form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="submit"] {
+  padding: 5px 15px;
+  width: 40%;
+  background: #ccc;
+  border: 0 none;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
 }

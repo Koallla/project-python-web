@@ -1,8 +1,13 @@
 {% extends 'contacts/layout.html' %}
 
-{% block title %}Contacts{% endblock %}
+{% block title %}Show contact{% endblock %}
+
+{% block header %}
+<h1>Show contact, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
+
 {% block content %}
-<a class='button' type="submit" href="/contacts/" target='_blank'>Main page </a>
+<a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a>
 
 <h1>{{record_list.contact_name }}</h1>
 <p>{{record_list.contact_phone}}</p>
