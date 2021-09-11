@@ -3,51 +3,51 @@
 
 {% block header %}
 <h1>Files List, {{user.username|default:'Guest'}}</h1>
+<li style = 'margin: 10px'><a href="{% url 'files-create' %}">Add file</a></li>
+<li style = 'margin: 10px'><a href="{% url 'userfiles' %}">Show files</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="features">
     <p>
+                {% if userfile_list %}
+                {% if filtered %}
+            <h2>Files in category - {{category}}</h2>
+            {% endif %}
 
-        {% if userfile_list %}
-        {% if filtered %}
-    <h2>Files in category - {{category}}</h2>
-    {% endif %}
+            <ul>
+                <table>
+                    <tr>
+                        <th>Category</th>
+                        <th>File</th>
+                        <th>Action</th>
+                    </tr>
 
-    <ul>
-        <table class="file-view">
-            <tr>
-                <th>Category</th>
-                <th>File</th>
-                <th>Action</th>
-            </tr>
+                    {% for file in userfile_list %}
+                    <tr>
+                        <td><a class='btn btn-warning' type="submit" href="{% url 'category' file.category %}">
+                                {{file.category}} </a>
+                        </td>
+                        <td><a href="{{ file.get_absolute_url }}">{{ file }}</a></td>
+                        <td><a class='btn btn-warning' type="submit" href="{% url 'delete-file' file.id %}">
+                                Delete file</a></td>
+                    </tr>
+                    {% endfor %}
 
-            {% for file in userfile_list %}
-            <tr>
-                <td><a class='btn btn-warning' type="submit" href="{% url 'category' file.category %}">
-                        {{file.category}} </a>
-                </td>
-                <td><a href="{{ file.get_absolute_url }}">{{ file }}</a></td>
-                <td><a class='btn btn-warning' type="submit" href="{% url 'delete-file' file.id %}">
-                        Delete file</a></td>
-            </tr>
-            {% endfor %}
-
-        </table>
-        <br>
-        <br>
-    </ul>
-    {% else %}
-    <p>There are no files in {{ user.name }}.</p>
-    {% endif %}
-    {% if filtered %}
-    <a href="{% url 'userfiles' %}">User files</a>
-    {% endif %}
-    <div>
-        <a class='btn btn-warning' type='submit' href="{% url 'files-create' %}" target='_self'>Add new file</a>
-    </div>
-    <br>
-    <a href="{% url 'contacts:index' %}"> Back to HOME </a>
+                </table>
+                <br>
+                <br>
+            </ul>
+            {% else %}
+            <p>There are no files in {{ user.name }}.</p>
+            {% endif %}
+            {% if filtered %}
+            <a href="{% url 'userfiles' %}">User files</a>
+            {% endif %}
+            <div>
+                <a class='btn btn-warning' type='submit' href="{% url 'files-create' %}" target='_self'>Add new file</a>
+            </div>
+            <br>
     </p>
 </div>
 {% endblock %}

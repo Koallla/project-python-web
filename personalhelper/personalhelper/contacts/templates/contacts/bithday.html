@@ -1,9 +1,15 @@
 {% extends 'contacts/layout.html' %}
+{% block title %} Birthday {% endblock %}
+{% block header %}
+<h1 style='margin-right: 100px'>Contacs birthday, {{ user.username|default:'Guest'}}</h1>
+<li style = 'margin: 10px'><a href="{% url 'contacts:add-contact' %}">Add contact</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:show-contacts' %}">Show contacts</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:search-contact' %}">Search contacts</a></li>
+{% endblock %}
 
-{% block title %}Contacts{% endblock %}
 {% block content %}
-<a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a>
-
+<div class="features">
+    <p>
 <h1>{{record.contact_name }}</h1>
 
 <p>Email - {{record.contact_email}}</p>
@@ -11,4 +17,6 @@
 <p>Birthday - {{record.contact_birthday}}</p>
 <p>Left days to Birthday - {{birthday}}</p>
 {{error}}
-{% endblock content %}
+</p>
+</div>
+{% endblock %}

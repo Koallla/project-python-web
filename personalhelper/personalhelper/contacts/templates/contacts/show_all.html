@@ -3,6 +3,9 @@
 {% block title %}Show all{% endblock title%}
 {% block header %}
 <h1>Contacts in your Adressbook, {{user.username|default:'Guest'}}</h1>
+<li style = 'margin: 10px'><a href="{% url 'contacts:add-contact' %}">Add contact</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:show-contacts' %}">Show contacts</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:search-contact' %}">Search contacts</a></li>
 {% endblock header%}
 {% block content %}
 <div class="features">
@@ -27,6 +30,5 @@
     {% else %}
     <p>No contacts are available.</p>
     {% endif %}
-    <p><a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a></p>
 </div>
 {% endblock content%}

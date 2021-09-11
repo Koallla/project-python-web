@@ -3,7 +3,10 @@
 {% block title %}Detail contact{% endblock %}
 
 {% block header %}
-<h1>Detail contact, {{user.username|default:'Guest'}}</h1>
+<h1 style='margin-right: 100px'>Your detail contact, {{user.username|default:'Guest'}}</h1>
+<li style = 'margin: 10px'><a href="{% url 'contacts:add-contact' %}">Add contact</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:show-contacts' %}">Show contacts</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:search-contact' %}">Search contacts</a></li>
 {% endblock %}
 
 {% block content %}
@@ -16,15 +19,16 @@
   <p>Email - {{contact.contact_email}}</p>
   <p>Adress - {{contact.contact_adress}}</p>
   <p>Birthday - {{contact.contact_birthday}}</p>
-
-  <a class='btn btn-warning' href="/contacts/show_contacts/{{contact.id}}/delete">Delete contact</a>
-  <br><br>
-  <a class='btn btn-warning' href="/contacts/show_contacts/{{contact.id}}/update">Update contact</a>
-  <br><br>
-  <a class='btn btn-warning' href="/contacts/show_contacts/add_phone/{{contact.id}}">ADD phone</a>
-  <br><br>
-  <a class='btn btn-warning' href="/contacts/show_contacts/{{contact.id}}/daystobth">Day to birthday</a>
-
+  <table>
+    <tr>
+      <td><a class='btn btn-warning' href="/contacts/show_contacts/{{contact.id}}/delete">Delete contact</a></td>
+      <td><a class='btn btn-warning' href="/contacts/show_contacts/{{contact.id}}/update">Update contact</a></td>
+    </tr>
+    <tr>
+      <td><a class='btn btn-warning' href="/contacts/show_contacts/add_phone/{{contact.id}}">ADD phone</a></td>
+      <td><a class='btn btn-warning' href="/contacts/show_contacts/{{contact.id}}/daystobth">Day to birthday</a></td>
+    </tr>
+  </table>
   </p>
 </div>
 {% endblock %}

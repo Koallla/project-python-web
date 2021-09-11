@@ -2,7 +2,7 @@
 {% block title %}Tag detail{% endblock %}
 
 {% block header %}
-<h1>Your tag, {{user.username|default:'Guest'}}</h1>
+<h1 style='margin-right: 100px'>Your tag, {{user.username|default:'Guest'}}</h1>
 <li style = 'margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
 <li style = 'margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
 <li style = 'margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
