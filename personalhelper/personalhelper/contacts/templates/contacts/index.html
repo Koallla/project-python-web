@@ -8,16 +8,14 @@
 
 {% block content %}
 <div class="features">
-
     <p>
         {% if user.is_authenticated %}
-        <a class='btn btn-warning' type="submit" href="{% url 'contacts:add-contact' %}" target='_self'>Add contact </a>
+        <a class='btn btn-warning' type="submit" href="{% url 'contacts:add-contact' %}" target='_self'>Add contact</a>
         <a class='btn btn-warning' type="submit" href="{% url 'contacts:show-contacts' %}" target='_self'>Show
             contacts</a>
         <a class='btn btn-warning' type="submit" href="{% url 'contacts:search-contact' %}" target='_self'>Search
-            contacts </a>
+            contacts</a>
         {% else %}
-
         <a href="{% url 'login' %}"><img src="{% static 'contacts/img/logo.jpg' %}" alt="Лого"></a>
         {% endif %}
     </p>

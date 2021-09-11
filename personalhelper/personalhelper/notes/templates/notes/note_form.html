@@ -2,7 +2,7 @@
 {% block title %}Note{% endblock %}
 
 {% block header %}
-<h1>Your notes, {{user.username|default:'Guest'}}</h1>
+<h1 style='margin-right: 100px'>Your notes, {{user.username|default:'Guest'}}</h1>
 <li style='margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
 <li style='margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
 <li style='margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
@@ -13,20 +13,16 @@
 {% block content %}
 <div class="features">
   <p>
-  <form action="" method="post">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <div>
-      <a href="{% url 'notes:tag-create' %}">Create Tag</a>
-    </div>
-    <input type="submit" value="Submit">
-  </form>
+    <form action="" method="post">
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+      <div>
+        <a href="{% url 'notes:tag-create' %}">Create Tag</a>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
   </p>
 </div>
-{% endblock %}
-
-{% block footer %}
-
 {% endblock %}

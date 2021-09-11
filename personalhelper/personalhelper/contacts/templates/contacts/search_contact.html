@@ -3,19 +3,21 @@
 {% block title %}Search contact{% endblock %}
 
 {% block header %}
-<h1>Search contact, {{user.username|default:'Guest'}}</h1>
+<h1 style='margin-right: 100px'>Search contact, {{user.username|default:'Guest'}}</h1>
+<li style = 'margin: 10px'><a href="{% url 'contacts:add-contact' %}">Add contact</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:show-contacts' %}">Show contacts</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:search-contact' %}">Search contacts</a></li>
 {% endblock %}
 
 {% block content %}
-<form action="" method="POST">
-    <div>
+<div class="features">
+    <p>
+        <form action="" method="POST">
         {% csrf_token %}
         <h5>{{message}}</h5>
         {{ form.as_p }}
-
         {{error}}
         <input type='submit' value='Search'><br>
-        <a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a>
-    </div>
-
-    {% endblock content %}
+    </p>
+</div>
+{% endblock %}
