@@ -27,5 +27,5 @@ urlpatterns = [
     path('users_files/', include('users_files.urls')),
 #     path('files/', include('contacts.urls')),
     path('notes/', include(('notes.urls', 'notes'),  namespace='notes')),
-    path('scraper/', include('scraper.urls'))
+    path('scraper/', include(('scraper.urls', 'scraper'), namespece='scraper')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
