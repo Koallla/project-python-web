@@ -11,12 +11,12 @@
 <div class="features">
     <h1>Add contact</h1>
     <p>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {{form1.as_p}}
-        <input type='submit' value='Submit'>
-    </form>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{form1.as_p}}
+            <input type='submit' value='Submit'>
+        </form>
     </p>
 </div>
 {% endblock %}

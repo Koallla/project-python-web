@@ -14,17 +14,17 @@
 {% block content %}
 <div class="features">
   <p>
-    {% if tag_list %}
-  <ul>
-    {% for tag in tag_list %}
-    <li>
-      <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>There are no tags in the profile.</p>
-  {% endif %}
+      {% if tag_list %}
+    <ul>
+      {% for tag in tag_list %}
+      <li>
+        <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are no tags in the profile.</p>
+    {% endif %}
   </p>
 </div>
 {% endblock %}

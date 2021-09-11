@@ -13,24 +13,24 @@
 {% block content %}
 <div class="features">
 	<p>
-	<h1>Title: {{ tag.title }}</h1>
+		<h1>Title: {{ tag.title }}</h1>
 
-	<div style="margin-left:20px;margin-top:20px">
-		<h4>Notes:</h4>
-		{% if tag.note_set.all %}
-		<ul>
-			{% for note in tag.note_set.all %}
-			{% if note.owner == request.user %}
-			<li>
-				<a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
-			</li>
+		<div style="margin-left:20px;margin-top:20px">
+			<h4>Notes:</h4>
+			{% if tag.note_set.all %}
+			<ul>
+				{% for note in tag.note_set.all %}
+				{% if note.owner == request.user %}
+				<li>
+					<a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+			{% else %}
+			<p>There are no notes with this tag.</p>
 			{% endif %}
-			{% endfor %}
-		</ul>
-		{% else %}
-		<p>There are no notes with this tag.</p>
-		{% endif %}
-	</div>
+		</div>
 	</p>
 </div>
 {% endblock %}

@@ -13,18 +13,18 @@
 <div class="features">
   <p>
 
-    {% if note_list %}
-  <ul>
-    {% for note in note_list %}
-    <li>
-      <a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>There are no notes in the profile.</p>
-  {% endif %}
+      {% if note_list %}
+    <ul>
+      {% for note in note_list %}
+      <li>
+        <a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are no notes in the profile.</p>
+    {% endif %}
   </p>
-  <a class='btn btn-warning' type='submit' href="{% url 'notes:index' %}" target="_self">To notes</a>
+    <a class='btn btn-warning' type='submit' href="{% url 'notes:index' %}" target="_self">To notes</a>
 </div>
 {% endblock %}

@@ -1,8 +1,10 @@
 {% extends 'contacts/layout.html' %}
 {% block title %}Scraper{% endblock %}
+
 {% block header %}
 <h1>Your sports news, {{ user.username|default:'Guest'}}</h1>
 {% endblock %}
+
 {% block content %}
 <div class="container">
     <h2 style='margin-left:350px' >Таблица чемпионата Украины</h2>

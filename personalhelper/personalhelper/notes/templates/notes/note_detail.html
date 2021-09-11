@@ -12,31 +12,31 @@
 {% block content %}
 <div class="features">
 	<div>
-	<h1>Title: {{ note.title }}</h1>
+		<h1>Title: {{ note.title }}</h1>
 
-	<h4>Tags:</h4>
-	{% if note.tags.all %}
-	<ul>
-		{% for tag in note.tags.all %}
-		<li>
-			<a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
-		</li>
-		{% endfor %}
-	</ul>
-	{% else %}
-	<p>There are no tags in this note.</p>
-	{% endif %}
-
-	<div style="margin-left:20px;margin-top:20px">
-		<h4>Note:</h4>
-		{{ note.value }}
-	</div>
-	<div>
+		<h4>Tags:</h4>
+		{% if note.tags.all %}
 		<ul>
-			<li style='margin-left: 20px'><a href="{% url 'notes:note-update' note.id %}">Note update</a></li>
-			<li style='margin-left: 20px'><a href="{% url 'notes:note-delete' note.id %}">Note delete</a></li>
+			{% for tag in note.tags.all %}
+			<li>
+				<a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+			</li>
+			{% endfor %}
 		</ul>
+		{% else %}
+		<p>There are no tags in this note.</p>
+		{% endif %}
+
+		<div style="margin-left:20px;margin-top:20px">
+			<h4>Note:</h4>
+			{{ note.value }}
+		</div>
+		<div>
+			<ul>
+				<li style='margin-left: 20px'><a href="{% url 'notes:note-update' note.id %}">Note update</a></li>
+				<li style='margin-left: 20px'><a href="{% url 'notes:note-delete' note.id %}">Note delete</a></li>
+			</ul>
+		</div>
 	</div>
-</div>
 </div>
 {% endblock %}
