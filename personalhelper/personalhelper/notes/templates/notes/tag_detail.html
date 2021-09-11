@@ -1,22 +1,36 @@
-{% extends "base.html" %}
+{% extends 'contacts/layout.html' %}
+{% block title %}Tag detail{% endblock %}
+
+{% block header %}
+<h1>Your tag, {{user.username|default:'Guest'}}</h1>
+<li style = 'margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
+<li style = 'margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
+<li style = 'margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
+<li style = 'margin: 10px'><a href="{% url 'notes:note-create' %}">Create Note</a></li>
+{% endblock %}
+
 
 {% block content %}
-  <h1>Title: {{ tag.title }}</h1>
+<div class="features">
+	<p>
+	<h1>Title: {{ tag.title }}</h1>
 
-  <p><strong>Author:</strong> username</p> <!-- author detail link not yet defined -->
-
-  <div style="margin-left:20px;margin-top:20px">
-    <h4>Notes:</h4>
-	{% if tag.note_set.all %}
-	  <ul>
-		{% for note in tag.note_set.all %}
-		  <li>
-			<a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
-		  </li>
-		{% endfor %}
-	  </ul>
-	{% else %}
+	<div style="margin-left:20px;margin-top:20px">
+		<h4>Notes:</h4>
+		{% if tag.note_set.all %}
+		<ul>
+			{% for note in tag.note_set.all %}
+			{% if note.owner == request.user %}
+			<li>
+				<a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		{% else %}
 		<p>There are no notes with this tag.</p>
-	{% endif %}
-  </div>
+		{% endif %}
+	</div>
+	</p>
+</div>
 {% endblock %}

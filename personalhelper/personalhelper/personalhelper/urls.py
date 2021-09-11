@@ -21,10 +21,11 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('contacts/', include('contacts.urls')),
-    #path('', RedirectView.as_view(url='/contacts/', permanent=True)),
-    path('users/', include('users.urls')),
+    path('contacts/', include(('contacts.urls', 'contacts'), namespace='contacts')),
+    path('', RedirectView.as_view(url='/contacts/', permanent=True)),
+    path('users/', include(('users.urls', 'users'), namespace='users')),
     path('users_files/', include('users_files.urls')),
-    path('files/', include('contacts.urls')),
-    path('notes/', include('notes.urls')),
+#     path('files/', include('contacts.urls')),
+    path('notes/', include(('notes.urls', 'notes'),  namespace='notes')),
+    path('scraper/', include(('scraper.urls', 'scraper'), namespece='scraper')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

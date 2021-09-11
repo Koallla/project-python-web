@@ -1,30 +1,23 @@
 {% extends 'contacts/layout.html' %}
-{% block title %}Tag list{% endblock %}
-
+{% block title %}Note{% endblock %}
 
 {% block header %}
-<h1>Your tags, {{user.username|default:'Guest'}}</h1>
+<h1>Your notes, {{user.username|default:'Guest'}}</h1>
 <li style = 'margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
 <li style = 'margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
 <li style = 'margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
 <li style = 'margin: 10px'><a href="{% url 'notes:note-create' %}">Create Note</a></li>
 {% endblock %}
 
-
 {% block content %}
-<div class="features">
-  <p>
-    {% if tag_list %}
-  <ul>
-    {% for tag in tag_list %}
-    <li>
-      <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>There are no tags in the profile.</p>
-  {% endif %}
-  </p>
-</div>
+
+<h1>Delete Note</h1>
+
+<p>Are you sure you want to delete the note: {{ note.title }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+</form>
+
 {% endblock %}

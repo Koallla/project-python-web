@@ -1,4 +1,5 @@
 
+from django.core import validators
 from django.db import models
 from django.urls import reverse
 from django.db.models.deletion import CASCADE
@@ -19,13 +20,14 @@ class Contact(models.Model):
         return f'/contacts/show_contacts/{self.pk}'
 
     def __str__(self):
-        return f'{self.contact_name} | {self.contact_phone}'
+        return f'{self.contact_name}'
 
 
 class Phone(models.Model):
-    phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=10, validators=[validators.RegexValidator(
+        regex='\d{10}$', message='Phone number must have 10 digits')])
     contact = models.ForeignKey(
         'Contact', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.value
+        return self.phone

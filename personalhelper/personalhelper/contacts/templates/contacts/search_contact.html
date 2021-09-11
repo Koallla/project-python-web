@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search contact</title>
-</head>
-<body>
-    <h1>Search contact</h1>
-    <form action = "" method="POST">
-        <a class='button' type="submit" href="/contacts/" target='_blank'>Main page </a>
-        {% csrf_token %}
-        {{ form.as_p }}
-              
-        <input type = 'submit' value = 'Submit'>
+{% extends 'contacts/layout.html' %}
 
-    </form>
-</body>
-</html>
+{% block title %}Search contact{% endblock %}
+
+{% block header %}
+<h1>Search contact, {{user.username|default:'Guest'}}</h1>
+{% endblock %}
+
+{% block content %}
+<form action="" method="POST">
+    <div>
+        {% csrf_token %}
+        <h5>{{message}}</h5>
+        {{ form.as_p }}
+
+        {{error}}
+        <input type='submit' value='Search'><br>
+        <a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a>
+    </div>
+
+    {% endblock content %}
