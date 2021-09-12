@@ -2,7 +2,7 @@
 {% block title %}Note list{% endblock %}
 
 {% block header %}
-<h1>Your notes, {{user.username|default:'Guest'}}</h1>
+<h1 style='margin-right: 100px'>Your notes, {{user.username|default:'Guest'}}</h1>
 <li style = 'margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
 <li style = 'margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
 <li style = 'margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
@@ -13,18 +13,18 @@
 <div class="features">
   <p>
 
-    {% if note_list %}
-  <ul>
-    {% for note in note_list %}
-    <li>
-      <a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>There are no notes in the profile.</p>
-  {% endif %}
+      {% if note_list %}
+    <ul>
+      {% for note in note_list %}
+      <li>
+        <a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are no notes in the profile.</p>
+    {% endif %}
   </p>
-  <a class='btn btn-warning' type='submit' href="{% url 'notes:index' %}" target="_self">To notes</a>
+    <a class='btn btn-warning' type='submit' href="{% url 'notes:index' %}" target="_self">To notes</a>
 </div>
 {% endblock %}

@@ -13,6 +13,7 @@ class Comand(models.Model):
     goals_out = models.CharField(max_length=10)
     scores = models.CharField(max_length=10)
     difference = models.CharField(max_length=10)
+    created = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):

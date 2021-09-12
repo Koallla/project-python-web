@@ -4,17 +4,18 @@
 
 {% block header %}
 <h1>Add phone, {{user.username|default:'Guest'}}</h1>
+<li style = 'margin: 10px'><a href="{% url 'contacts:add-contact' %}">Add contact</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:show-contacts' %}">Show contacts</a></li>
+<li style = 'margin: 10px'><a href="{% url 'contacts:search-contact' %}">Search contacts</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="features">
     <p>
-    <form action="" method="POST">
-        <a class='btn btn-warning' type="submit" href="/contacts/" target='_blank'>Main page </a>
+        <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-
         <input type='submit' value='Submit'>
-        </p>
+    </p>
 </div>
 {% endblock %}
