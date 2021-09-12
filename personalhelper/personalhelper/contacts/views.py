@@ -3,7 +3,7 @@ from django.conf.urls import url
 from django.core.paginator import Paginator
 from django.db.models import fields
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, request
+from django.http import HttpResponse
 from .models import Contact, Phone
 from django.template import loader
 from .forms import ContactForm, SearchForm, PhoneForm
@@ -134,22 +134,20 @@ def search(request):
 
             # print(name)
             try:
-                contacts = contact_list.filter(contact_name__contains=name)
-                print(contacts)
+                contacts = contact_list.filter(contact_name__icontains=name)
                 return render(request, 'contacts/index.html', {'record_list': contacts, 'mode': 'search'})
             except:
                 error = 'No contacts with such name. Search is case sensitive'
                 form = SearchForm()
-                return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
+                return render(request, 'contacts/index.html', {'form': form, 'error': error})
         else:
             error = 'No contats with sush name. Search is case sensitive'
             form = SearchForm()
             return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
 
     else:
-        message = 'Search is case sensitive'
         form = SearchForm()
-        return render(request, 'contacts/search_contact.html', {'form': form, 'message': message})
+        return render(request, 'contacts/search_contact.html', {'form': form})
 
 
 @login_required(login_url='login')
@@ -204,5 +202,7 @@ def days_to_birthday(request, id):
 
 
 @login_required(login_url='login')
-def filtered_by_day(request, id):
-    pass
+def filtered_by_day(request, days):
+    contacts = request.GET.get('record_list')
+    print(contacts)
+    return render(request, 'contacts/index.html', {'record_list': contacts, 'mode': 'search'})

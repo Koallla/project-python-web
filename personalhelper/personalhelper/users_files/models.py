@@ -34,5 +34,5 @@ class UserFile(models.Model):
         super().delete()
 
     def __str__(self) -> str:
-        filename = self.file.name.replace("files\\", "")
+        filename = self.file.name.replace("files/", "")
         return f'{filename}'
