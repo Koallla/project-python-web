@@ -66,6 +66,9 @@ def get_data_second(url2):
 
 
 def save_to_db():
+    global data_list_first
+    global data_list_second
+    print('len(data_list_first)', len(data_list_first))
     for i in range(len(data_list_first)):
         data_list_first[i].update(data_list_second[i])
 
@@ -82,8 +85,12 @@ def save_to_db():
         difference = data_list_first[i]['difference'],
         scores = data_list_first[i]['scores'],    
         )
-
+        print(f'data save {i}--------------------------------')
         db_comand.save()
+    
+    
+    data_list_first = []
+    data_list_second = []
 
 
 
@@ -97,10 +104,19 @@ def add_commands_to_db():
 
 
     if Comand.objects.order_by('?').first():
-        data_created = Comand.objects.order_by('?').first().created
-        difference = datetime.now(timezone.utc) - data_created
-        if difference > DELTA_TIME:
-            Comand.objects.all().delete()
-            save_to_db()
-    else:
+        # data_created = Comand.objects.order_by('?').first().created
+        # difference = datetime.now(timezone.utc) - data_created
+        # print(f'difference {difference}')
+        # if difference > DELTA_TIME:
+        Comand.objects.all().delete()
+        print('delete is done!')
+        print('run func save_to_db()')
+        print('data_list_first', len(data_list_first))
+        print('data_list_second', len(data_list_second))
         save_to_db()
+    else:
+        print('save_to_db()')
+        print('data_list_first', len(data_list_first))
+        print('data_list_second', len(data_list_second))
+        save_to_db()
+        
