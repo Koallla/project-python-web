@@ -1,6 +1,7 @@
 
 from django.core import validators
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.db.models.deletion import CASCADE
 from storages.backends.sftpstorage import SFTPStorage

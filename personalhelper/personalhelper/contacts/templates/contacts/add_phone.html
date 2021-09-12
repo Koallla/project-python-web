@@ -3,19 +3,17 @@
 {% block title %}Add phone{% endblock %}
 
 {% block header %}
-<h1>Add phone, {{user.username|default:'Guest'}}</h1>
-<li style = 'margin: 10px'><a href="{% url 'contacts:add-contact' %}">Add contact</a></li>
-<li style = 'margin: 10px'><a href="{% url 'contacts:show-contacts' %}">Show contacts</a></li>
-<li style = 'margin: 10px'><a href="{% url 'contacts:search-contact' %}">Search contacts</a></li>
+<h1>Hello, {{user.username|default:'Guest'}}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="features">
     <p>
-        <form action="" method="POST">
+    <form action="" method="POST">
         {% csrf_token %}
+        <h1>Add phone to contact {{ person.contact_name }}</h1>
         {{ form.as_p }}
         <input type='submit' value='Submit'>
-    </p>
+        </p>
 </div>
 {% endblock %}
