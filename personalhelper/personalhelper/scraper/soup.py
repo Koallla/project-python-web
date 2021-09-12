@@ -4,10 +4,6 @@ from .models import Comand
 from threading import Thread
 
 
-
-
-
-
 import requests
 
 
@@ -15,7 +11,7 @@ url1 = 'https://terrikon.com/football/ukraine/championship/'
 url2 = 'https://football.ua/ukraine/table.html'
 data_list_first = []
 data_list_second = []
-DELTA_TIME = timedelta(minutes=10)
+DELTA_TIME = timedelta(minutes=5)
 
 def get_soup(url_adress):
     response = requests.get(url_adress)
@@ -46,7 +42,6 @@ def get_data_second(url2):
     soup = get_soup(url2)
     tr_list = soup.find('table', class_='main-tournament-table').find_all('tr')
     
-
     for tr in tr_list[1:]:
         data_dict = {}
         data_dict['rating'] = int(tr.find('td', class_='num').string)
@@ -64,8 +59,18 @@ def get_data_second(url2):
         data_list_second.append(data_dict)
 
 
+def rec_data_to_lists():
+    data_first = Thread(target=get_data_first, args=(url1,))
+    data_first.start()
+    data_second = Thread(target=get_data_second, args=(url2,))
+    data_second.start()
+    data_first.join()
+    data_second.join()
+    
 
 def save_to_db():
+    global data_list_first
+    global data_list_second
     for i in range(len(data_list_first)):
         data_list_first[i].update(data_list_second[i])
 
@@ -84,23 +89,20 @@ def save_to_db():
         )
 
         db_comand.save()
-
+    
+    data_list_first = []
+    data_list_second = []
 
 
 def add_commands_to_db():
-    data_first = Thread(target=get_data_first, args=(url1,))
-    data_first.start()
-    data_second = Thread(target=get_data_second, args=(url2,))
-    data_second.start()
-    data_first.join()
-    data_second.join()
-
-
     if Comand.objects.order_by('?').first():
         data_created = Comand.objects.order_by('?').first().created
         difference = datetime.now(timezone.utc) - data_created
         if difference > DELTA_TIME:
             Comand.objects.all().delete()
+            rec_data_to_lists()
             save_to_db()
     else:
+        rec_data_to_lists()
         save_to_db()
+        
