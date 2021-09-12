@@ -1,23 +1,21 @@
 {% extends 'contacts/layout.html' %}
+{% load bootstrap5 %}
 {% block title %}Add file{% endblock %}
 
 {% block header %}
 <h1>Add file, {{user.username|default:'Guest'}}</h1>
-<li style = 'margin: 10px'><a href="{% url 'files-create' %}">Add file</a></li>
-<li style = 'margin: 10px'><a href="{% url 'userfiles' %}">Show files</a></li>
+<li style='margin: 10px'><a href="{% url 'files-create' %}">Add file</a></li>
+<li style='margin: 10px'><a href="{% url 'userfiles' %}">Show files</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="features">
-    <p>
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <table>
-                {{ form.as_table }}<br>
-            </table>
-            <br>
-            <input type="submit" value="Submit">
-        </form>
-    </p>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit" value="Submit" class="btn btn-success"> Add file</button>
+        {% endbuttons %}
+    </form>
 </div>
 {% endblock %}

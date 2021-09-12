@@ -1,5 +1,6 @@
 import mimetypes
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views import generic
@@ -30,14 +31,27 @@ def add_file(request):
     return render(request, 'users_files/add.html', {'form': form})
 
 
-class UsersFilesView(generic.ListView):
-    model = UserFile
+# class UsersFilesView(generic.ListView):
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['userfile_list'] = UserFile.objects.filter(
-            user_id=self.request.user.id)
-        return context
+#     model = UserFile
+
+#     def get_context_data(self, **kwargs):
+#         paginate_by = 2
+#         context = super(UsersFilesView, self).get_context_data(**kwargs)
+#         userfile_list = UserFile.objects.filter(
+#             user_id=self.request.user.id)
+#         paginator = Paginator(userfile_list, paginate_by)
+#         page = self.request.GET.get('page')
+#         print(paginator.count)
+
+#         try:
+#             userfiles = paginator.page(page)
+#         except PageNotAnInteger:
+#             userfiles = paginator.page(1)
+#         except EmptyPage:
+#             userfiles = paginator.page(paginator.num_pages)
+#         context['userfile_list'] = userfiles
+#         return context
 
 
 def download_file(request, filename):
@@ -72,4 +86,9 @@ def files_all(request):
     userfile_list = []
     userfile_list = UserFile.objects.filter(
         user_id=request.user.id)
-    return render(request, 'users_files/userfile_list.html', {'userfile_list': userfile_list, 'filtered': False})
+
+    paginator = Paginator(userfile_list, 10)  # Show 25 contacts per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'users_files/userfile_list.html', {'userfile_list': page_obj, 'filtered': False})
