@@ -1,5 +1,7 @@
 {% extends 'contacts/layout.html' %}
+{% load bootstrap5 %}
 {% block title %}Note{% endblock %}
+
 
 {% block header %}
 <h1 style='margin-right: 100px'>Your notes, {{user.username|default:'Guest'}}</h1>
@@ -11,18 +13,14 @@
 
 
 {% block content %}
-<div class="features">
-  <p>
-    <form action="" method="post">
-      {% csrf_token %}
-      <table>
-        {{ form.as_table }}
-      </table>
-      <div>
-        <a href="{% url 'notes:tag-create' %}">Create Tag</a>
-      </div>
-      <input type="submit" value="Submit">
-    </form>
-  </p>
+<div class="form-group features">
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <div>
+      <a href="{% url 'notes:tag-create' %}">Create Tag</a>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
 </div>
 {% endblock %}

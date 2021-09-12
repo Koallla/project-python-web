@@ -108,6 +108,7 @@ input {
 }
 
 span.helptext {
+  display: none;
 }
 
 .features form {
@@ -115,6 +116,7 @@ span.helptext {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-left: 5%;
 }
 
 input[type="submit"] {
@@ -135,7 +137,7 @@ button {
   color: #000;
   background-color: #ffc107;
   border-color: #ffc107;
-  width: 50%;
+  width: 200px;
 }
 
 .btn-info {

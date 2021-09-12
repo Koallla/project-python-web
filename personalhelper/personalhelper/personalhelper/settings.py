@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'notes.apps.NotesConfig',
     'users_files.apps.UsersFilesConfig',
     'scraper.apps.ScraperConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

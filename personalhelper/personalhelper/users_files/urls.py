@@ -9,6 +9,7 @@ urlpatterns = [
         name='files-create'),
     # url(r'^userfiles/$', views.UsersFilesView.as_view(), name='userfiles'),
     path('userfiles/', views.files_all, name='userfiles'),
+    path('userfiles/order_by', views.order_by, name='order-by'),
     path('userfiles/files/<str:filename>', views.download_file),
     path('delete/files/<int:id>', views.delete_file, name='delete-file'),
     path('category/<str:category_name>',
