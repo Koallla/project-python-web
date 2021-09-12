@@ -1,46 +1,42 @@
-{% extends 'contacts/layout.html' %}
-{% block title %}Scraper{% endblock %}
-
-{% block header %}
+{% extends 'contacts/layout.html' %} {% block title %}Scraper{% endblock %}
+{%block header%}
 <h1>Your sports news, {{ user.username|default:'Guest'}}</h1>
-{% endblock %}
-
-{% block content %}
+{%endblock%} {% block content %}
 <div class="container">
-    <h2 style='margin-left:350px' >Таблица чемпионата Украины</h2>
-    <table class="table table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">Поз</th>
-          <th scope="col">Команда</th>
-          <th scope="col">Игры</th>
-          <th scope="col">Выигрыши</th>
-          <th scope="col">Ничьи</th>
-          <th scope="col">Поражения</th>
-          <th scope="col">Забитые</th>
-          <th scope="col">Пропущенные</th>
-          <th scope="col">Разница</th>
-          <th scope="col">Очки</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for comand in comands %}
+  <h2 style="margin-left: 350px">Таблица чемпионата Украины</h2>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Поз</th>
+        <th scope="col">Команда</th>
+        <th scope="col">Игры</th>
+        <th scope="col">Выигрыши</th>
+        <th scope="col">Ничьи</th>
+        <th scope="col">Поражения</th>
+        <th scope="col">Забитые</th>
+        <th scope="col">Пропущенные</th>
+        <th scope="col">Разница</th>
+        <th scope="col">Очки</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for comand in comands %}
 
-        <tr>
-          <th scope="row">{{comand.rating}}</th>
-          <td><img src="{{comand.logo}}" alt="logo" />&nbsp;{{comand.name}}</td>
-          <td>{{comand.games}}</td>
-          <td class="text-success">{{comand.wins}}</td>
-          <td class="text-warning">{{comand.draws}}</td>
-          <td class="text-danger">{{comand.losses}}</td>
-          <td>{{comand.goals_in}}</td>
-          <td>{{comand.goals_out}}</td>
-          <td>{{comand.difference}}</td>
-          <td>{{comand.scores}}</td>
-        </tr>
+      <tr>
+        <th scope="row">{{comand.rating}}</th>
+        <td><img src="{{comand.logo}}" alt="logo" />&nbsp;{{comand.name}}</td>
+        <td>{{comand.games}}</td>
+        <td class="text-success">{{comand.wins}}</td>
+        <td class="text-warning">{{comand.draws}}</td>
+        <td class="text-danger">{{comand.losses}}</td>
+        <td>{{comand.goals_in}}</td>
+        <td>{{comand.goals_out}}</td>
+        <td>{{comand.difference}}</td>
+        <td>{{comand.scores}}</td>
+      </tr>
 
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}
