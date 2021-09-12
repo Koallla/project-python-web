@@ -204,5 +204,5 @@ def days_to_birthday(request, id):
 
 
 @login_required(login_url='login')
-filtered_by_day(request, id):
-pass
+def filtered_by_day(request, id):
+    pass
