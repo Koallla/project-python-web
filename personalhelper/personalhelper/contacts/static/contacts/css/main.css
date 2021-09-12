@@ -119,7 +119,7 @@ span.helptext {
 
 input[type="submit"] {
   padding: 5px 15px;
-  width: 40%;
+  width: 200px;
   background: #ccc;
   border: 0 none;
   cursor: pointer;
@@ -127,6 +127,13 @@ input[type="submit"] {
   border-radius: 5px;
 }
 
-table {
-  margin: auto;
+button {
+  width: 200px;
 }
+
+.btn-warning {
+  color: #000;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  width: 200px;
+
