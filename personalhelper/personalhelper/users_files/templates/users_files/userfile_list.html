@@ -17,11 +17,11 @@
     <h2>Files in category - {{category}}</h2>
     {% endif %}
     <ul>
-        <table>
+        <table class="table">
             <tr>
-                <th>Category</th>
-                <th>File</th>
-                <th>Action</th>
+                <th scope="col">Category</th>
+                <th scope="col">File</th>
+                <th scope="col">Action</th>
             </tr>
 
             {% for file in userfile_list %}
@@ -29,7 +29,7 @@
                 <td><a class='btn btn-warning' type="submit" href="{% url 'category' file.category %}">
                         {{file.category}} </a>
                 </td>
-                <td>{{ file }}</td>
+                <td scope="row">{{ file }}</td>
                 <td> <a class='btn btn-warning' type="submit" href="{{ file.get_absolute_url }}">
                         Download file</a> <a class='btn btn-warning' type="submit"
                         href="{% url 'delete-file' file.id %}">

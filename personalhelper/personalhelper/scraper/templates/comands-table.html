@@ -1,7 +1,8 @@
 {% extends 'contacts/layout.html' %} {% block title %}Scraper{% endblock %}
 {%block header%}
 <h1>Your sports news, {{ user.username|default:'Guest'}}</h1>
-{%endblock%} {% block content %}
+{%endblock%}
+{% block content %}
 <div class="container">
   <h2 style="margin-left: 350px">Таблица чемпионата Украины</h2>
   <table class="table table-bordered">
@@ -39,4 +40,4 @@
     </tbody>
   </table>
 </div>
-<<<<<<< HEAD {% endblock %}======={% endblock %}>>>>>>> e23622cfdfe94082d8c1645e724223c58223528b
+{% endblock content %}

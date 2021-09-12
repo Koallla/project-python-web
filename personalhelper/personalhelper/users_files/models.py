@@ -3,10 +3,12 @@ from django.db import models
 from django.urls import reverse
 from django.db.models.deletion import CASCADE
 from storages.backends.sftpstorage import SFTPStorage
+from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 # Create your models here.
 
 SFS = SFTPStorage()
+LFS = FileSystemStorage()
 
 
 def file_size(value):  # add this to some file where you can import it from
@@ -21,7 +23,7 @@ class UserFile(models.Model):
 
     user = models.ForeignKey(User, on_delete=CASCADE)
     file = models.FileField(
-        upload_to='files/', storage=SFS, validators=[file_size])
+        upload_to='files\\', storage=LFS, validators=[file_size])
     category = models.CharField(max_length=25, choices=CATEGORIES)
 
     def get_absolute_url(self):
