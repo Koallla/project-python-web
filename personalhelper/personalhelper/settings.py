@@ -1,8 +1,7 @@
 import os
-# import django_heroku
+import django_heroku
 
 
-# django_heroku.settings(locals())
 """
 Django settings for personalhelper project.
 
@@ -141,7 +140,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 
@@ -172,3 +171,6 @@ LOGOUT_REDIRECT_URL = "contacts:index"
 
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
+
+
+django_heroku.settings(locals())
