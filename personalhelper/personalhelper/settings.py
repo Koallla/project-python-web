@@ -1,4 +1,8 @@
 import os
+import django_heroku
+
+
+django_heroku.settings(locals())
 """
 Django settings for personalhelper project.
 
@@ -13,7 +17,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -21,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # os.getenv("SECRET_KEY")
-SECRET_KEY = 'django-insecure-j8ms2sff9(duk#97m3kf0rdpg5udbaj9m1g#$35g%@v$i9!ofa'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -74,7 +81,6 @@ TEMPLATES = [
     },
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'personalhelper.wsgi.application'
 
@@ -91,8 +97,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'web-project',  # 'postgres',  #
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
         'HOST': '82.193.125.109',  # 'db',  #
         'PORT': '5432',
     }
@@ -135,11 +141,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(PROJECT_ROOT, 'static'),
 ]
+#  BASE_DIR / "static",
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -152,7 +161,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.sftpstorage.SFTPStorage'
 SFTP_STORAGE_HOST = '82.193.125.109'
 SFTP_STORAGE_ROOT = '/home/'
 # {'username': os.getenv('SFTP_STORAGE_USER'), 'password': os.getenv('SFTP_STORAGE_PASSWORD')}
-SFTP_STORAGE_PARAMS = {'username': 'dev_users', 'password': 'dev_2021'}
+SFTP_STORAGE_PARAMS = {'username': os.getenv(
+    'SFTP_STORAGE_USER'), 'password': os.getenv('SFTP_STORAGE_PASSWORD')}
 SFTP_STORAGE_INTERACTIVE = False
 
 
