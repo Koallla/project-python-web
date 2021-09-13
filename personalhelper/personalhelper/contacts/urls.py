@@ -23,7 +23,7 @@ urlpatterns = [
     path('search_contact/<int:pk>', views.search),
     path('show_contacts/<int:id>/daystobth',
          views.days_to_birthday, name='bithday'),
-    path('show_contacts/days_to/<int:day>',
+    path('show_contacts/days_to/',
          views.filtered_by_day, name='by-day-to-birthday'),
 
     #path('<str:filepath>/', views.download_file),

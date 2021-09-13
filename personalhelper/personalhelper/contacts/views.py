@@ -4,17 +4,16 @@ from django.core.paginator import Paginator
 from django.db.models import fields
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import Contact, Phone
+import mimetypes
 from django.template import loader
-from .forms import ContactForm, SearchForm, PhoneForm
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 from django.contrib.auth.decorators import login_required
 import re
 from datetime import date, datetime
 
-# Create your views here.
-import mimetypes
+from .forms import ContactForm, PhoneForm, SearchByDay, SearchByName
+from .models import Contact, Phone
 
 
 def download_file(request):
@@ -128,7 +127,7 @@ def search(request):
         contact_list = Contact.objects.filter(user=request.user.id)
         print(Contact._meta.fields)
         # print(contact_list)
-        form = SearchForm(request.POST)
+        form = SearchByName(request.POST)
         if form.is_valid():
             name = form.cleaned_data.get('contact_name')
 
@@ -138,16 +137,17 @@ def search(request):
                 return render(request, 'contacts/index.html', {'record_list': contacts, 'mode': 'search'})
             except:
                 error = 'No contacts with such name. Search is case sensitive'
-                form = SearchForm()
+                form = SearchByName()
                 return render(request, 'contacts/index.html', {'form': form, 'error': error})
         else:
             error = 'No contats with sush name. Search is case sensitive'
-            form = SearchForm()
+            form = SearchByName()
             return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
 
     else:
-        form = SearchForm()
-        return render(request, 'contacts/search_contact.html', {'form': form})
+        form = SearchByName()
+        form1 = SearchByDay()
+        return render(request, 'contacts/search_contact.html', {'form': form, 'form1': form1})
 
 
 @login_required(login_url='login')
@@ -202,7 +202,14 @@ def days_to_birthday(request, id):
 
 
 @login_required(login_url='login')
-def filtered_by_day(request, days):
-    contacts = request.GET.get('record_list')
-    print(contacts)
+def filtered_by_day(request):
+    if request.method == 'POST':
+        form = SearchByDay(request.POST)
+        if form.is_valid():
+            day_to_birtday = form.cleaned_data.get('day_to_birthday')
+            contact_list = Contact.objects.filter(user=request.user.id)
+            contacts = []
+            for contact in contact_list:
+                if contact.day_to_birhday(day_to_birtday):
+                    contacts.append(contact)
     return render(request, 'contacts/index.html', {'record_list': contacts, 'mode': 'search'})

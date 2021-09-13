@@ -12,10 +12,19 @@
 {% block content %}
 <div class="features">
     <p>
-    <form action="" method="POST">
+    <form action="{% url 'contacts:search-contact' %}" method="POST">
         {% csrf_token %}
         <h5>{{message}}</h5>
         {{ form.as_p }}
+        {{error}}
+        <input type='submit' value='Search'><br>
+    </form>
+    </p>
+    <p>
+    <form action="{% url 'contacts:by-day-to-birthday' %}" method="POST">
+        {% csrf_token %}
+        <h5>{{message}}</h5>
+        {{ form1.as_p }}
         {{error}}
         <input type='submit' value='Search'><br>
     </form>

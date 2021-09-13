@@ -15,7 +15,7 @@
         {% if form %}
     <form method="POST" action="{% url 'order-by' %}">
         {% csrf_token %}
-        {{form}}
+        {{form}} <br>
         <button class='btn btn-dark btn-sm' type='submit'> Order </button>
     </form>
     {% endif %}
