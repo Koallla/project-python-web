@@ -1,3 +1,4 @@
+import django_heroku
 import os
 """
 Django settings for personalhelper project.
@@ -164,3 +165,5 @@ LOGOUT_REDIRECT_URL = "contacts:index"
 
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
+# Activate Django-Heroku.
+django_heroku.settings(locals())
