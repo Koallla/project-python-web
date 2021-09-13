@@ -1,3 +1,4 @@
+from os import error
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login
@@ -17,4 +18,5 @@ def register(request):
             login(request, user)
             return redirect(reverse("contacts:index"))
         else:
-            return render(request, 'users/register.html', {'form': CustomUserCreationForm})
+            print(form.errors)
+            return render(request, 'users/register.html', {'form': CustomUserCreationForm, 'errors': form.errors})

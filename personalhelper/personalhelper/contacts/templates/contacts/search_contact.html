@@ -5,17 +5,26 @@
 {% block header %}
 <h1 style='margin-right: 100px'>Search contact, {{user.username|default:'Guest'}}</h1>
 <li style='margin: 10px'><a href="{% url 'contacts:add-contact' %}">Add contact</a></li>
-<li style='margin: 10px'><a href="{% url 'contacts:show-contacts' %}">Show contacts</a></li>
+<li style='margin: 10px'><a href="{% url 'contacts:index' %}">Show contacts</a></li>
 <li style='margin: 10px'><a href="{% url 'contacts:search-contact' %}">Search contacts</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="features">
     <p>
-    <form action="" method="POST">
+    <form action="{% url 'contacts:search-contact' %}" method="POST">
         {% csrf_token %}
         <h5>{{message}}</h5>
         {{ form.as_p }}
+        {{error}}
+        <input type='submit' value='Search'><br>
+    </form>
+    </p>
+    <p>
+    <form action="{% url 'contacts:by-day-to-birthday' %}" method="POST">
+        {% csrf_token %}
+        <h5>{{message}}</h5>
+        {{ form1.as_p }}
         {{error}}
         <input type='submit' value='Search'><br>
     </form>
