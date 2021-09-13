@@ -1,8 +1,8 @@
 import os
-import django_heroku
+# import django_heroku
 
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 """
 Django settings for personalhelper project.
 
@@ -28,7 +28,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # os.getenv("SECRET_KEY")
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-j8ms2sff9(duk#97m3kf0rdpg5udbaj9m1g#$35g%@v$i9!ofa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
