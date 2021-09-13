@@ -1,32 +1,112 @@
-{% extends 'contacts/layout.html' %}
-
-{% block title %}Show all{% endblock title%}
-{% block header %}
-<h1>Contacts in your Adressbook, {{user.username|default:'Guest'}}</h1>
-{% endblock header%}
 {% block content %}
 <div class="features">
-    {% if mode %}
-    <h2>Found contacts in your Adressbook</h2>
-    {% else %}
-    <h2>All contacts in your Adressbook</h2>
-    {% endif %}
-
-    {{mode}}
-
-    {% if record_list %}
-    <ul>
-        {% for record in record_list %}
-
-        <li> {{ record.contact_name }} ----{{record.phone_set.first}}
-            <a class='btn btn-warning' href="/contacts/show_contacts/{{record.id}}">Show detail</a>
-        </li><br>
-
+  {% if mode %}
+  <h2>Found contacts in your Adressbook</h2>
+  {% else %}
+  <h2>All contacts in your Adressbook</h2>
+  {% endif %} {{mode}} {% if record_list %}
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Mail</th>
+      <th>Birthday</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Action</th>
+    </tr>
+    {% for record in record_list %}
+    <tr class="align-middle">
+      <td>{{ record.contact_name }}</td>
+      <td>
+        {% if record.contact_email %} {{record.contact_email}} {% else %} ----
+        {% endif %}
+      </td>
+      <td>
+        {% if record.contact_birthday %} {{record.contact_birthday}} {% else %}
+        ---- {% endif %}
+      </td>
+      <td>
+        {% if record.contact_address %} {{record.contact_address}} {% else %}
+        ---- {% endif %}
+      </td>
+      <td>
+        {% for phone in record.phone_set.all %} {{ phone }}
+        <a
+          class="link"
+          style="vertical-align: text-bottom"
+          href="/contacts/show_contacts/{{phone.id}}/delete_phone"
+          ><img
+            style="width: 18px"
+            src="https://cdn-icons-png.flaticon.com/512/1345/1345823.png"
+            alt=""
+        /></a>
+        <br />
         {% endfor %}
-    </ul>
-    {% else %}
-    <p>No contacts are available.</p>
+      </td>
+      <td>
+        <a
+          class="btn btn-info btn-sm"
+          href="/contacts/show_contacts/add_phone/{{record.id}}"
+          >Add phone</a
+        >
+        <!-- <a class="btn btn-info" href="/contacts/show_contacts/{{record.id}}">Show detail</a> -->
+        <a
+          class="btn btn-info btn-sm"
+          href="/contacts/show_contacts/{{record.id}}/delete"
+          >Delete</a
+        >
+        <a
+          class="btn btn-info btn-sm"
+          href="/contacts/show_contacts/{{record.id}}/update"
+          >Edit</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <span class="step-links">
+    {% if record_list.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ record_list.previous_page_number }}">previous</a>
     {% endif %}
-    <p><a class='btn btn-warning' type="submit" href="/contacts/" target='_self'>Main page </a></p>
+
+    <span class="current">
+      Page {{ record_list.number }} of {{ record_list.paginator.num_pages }}.
+    </span>
+
+    {% if record_list.has_next %}
+    <a href="?page={{ record_list.next_page_number }}">next</a>
+    <a href="?page={{ record_list.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+  {% else %}
+  <p>No contacts are available.</p>
+  {% endif %}
+  <p>
+    {% if mode %}
+    <a
+      class="btn btn-warning"
+      type="submit"
+      href="{% url 'contacts:index' %}"
+      target="_self"
+      >Show all contacts</a
+    >
+    {% endif %}
+    <a
+      class="btn btn-warning"
+      type="submit"
+      href="{% url 'contacts:add-contact' %}"
+      target="_self"
+      >Add contact</a
+    >
+    <a
+      class="btn btn-warning"
+      type="submit"
+      href="{% url 'contacts:search-contact' %}"
+      target="_self"
+      >Search</a
+    >
+  </p>
 </div>
+
 {% endblock content%}

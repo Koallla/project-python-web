@@ -33,3 +33,9 @@ class Note(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this Note."""
         return reverse('notes:note-detail', args=[str(self.id)])
+
+    def get_short_value(self):
+        result = self.value
+        if len(self.value) > 50:
+            result = result[:50]
+        return result

@@ -9,7 +9,7 @@ urlpatterns = [
     path('note/<int:pk>/', views.NoteDetailView.as_view(),
          name='note-detail'),
     path('tags/', views.TagListView.as_view(), name='tags'),
-    path('tags/<int:pk>/', views.TagDetailView.as_view(), name='tag-detail'),
+    path('tags/<int:pk>/', views.notes_by_tags, name='tag-detail'),
 ]
 
 urlpatterns += [

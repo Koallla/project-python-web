@@ -2,29 +2,77 @@
 {% block title %}Note list{% endblock %}
 
 {% block header %}
-<h1>Your notes, {{user.username|default:'Guest'}}</h1>
-<li style = 'margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
-<li style = 'margin: 10px'><a href="{% url 'notes:note-create' %}">Create Note</a></li>
+<h1 style='margin-right: 100px'>Your notes, {{user.username|default:'Guest'}}</h1>
+<li style='margin: 10px'><a href="{% url 'notes:index' %}">Home</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:note' %}">My Notes</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:tags' %}">Tags</a></li>
+<li style='margin: 10px'><a href="{% url 'notes:note-create' %}">Create Note</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="features">
+  {% if filtered %}
+  <h2>
+    All notes with tag <strong>"{{tag}}"</strong>
+  </h2>
+  {% endif %}
   <p>
+    {% if page_obj %}
+  <table class="table">
+    <tr>
+      <th>Title</th>
+      <th>Tags</th>
+      <th>Notes</th>
+      <th>Action</th>
+    </tr>
+    {% for note in page_obj %}
+    <tr class="align-middle">
+      <td>
+        <h3>
+          {{ note.title }}
+        </h3>
+      </td>
+      <td>{% for tag in note.tags.all %}
+        <a class="link" href="{{ tag.get_absolute_url }}">{{ tag }}</a>
+        {% endfor %}
+      </td>
+      <td>
+        {{ note.get_short_value}}
+      </td>
+      <td>
+        <a class='btn btn-info btn-sm' href="{{ note.get_absolute_url }}">Show</a>
+        <a class='btn btn-info btn-sm' href="{{ note.get_absolute_url }}delete">Delete</a>
+      </td>
+    </tr>
 
-    {% if note_list %}
-  <ul>
-    {% for note in note_list %}
-    <li>
-      <a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
-    </li>
     {% endfor %}
-  </ul>
+  </table>
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
   {% else %}
   <p>There are no notes in the profile.</p>
   {% endif %}
   </p>
-  <a class='btn btn-warning' type='submit' href="{% url 'notes:index' %}" target="_self">To notes</a>
+  {% if filtered %}
+  <div>
+    <a class='btn btn-warning' type='submit' href="{% url 'notes:note' %}" target="_self">Clear filter</a>
+  </div>
+  {% endif %}
+  <div>
+    <a class='btn btn-warning' type='submit' href="{% url 'notes:note-create' %}" target="_self">Create Note</a>
+  </div>
+
 </div>
 {% endblock %}

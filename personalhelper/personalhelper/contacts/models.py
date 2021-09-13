@@ -1,6 +1,7 @@
-
+from datetime import datetime, date, timedelta
 from django.core import validators
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.db.models.deletion import CASCADE
 from storages.backends.sftpstorage import SFTPStorage
@@ -18,6 +19,14 @@ class Contact(models.Model):
 
     def get_absolute_url(self):
         return f'/contacts/show_contacts/{self.pk}'
+
+    def day_to_birhday(self, days):
+        if self.contact_birthday:
+            birthday = date(
+                datetime.now().year, self.contact_birthday.month, self.contact_birthday.day)
+            if datetime.now().date() <= birthday <= (datetime.now() + timedelta(days)).date():
+                return True
+        return False
 
     def __str__(self):
         return f'{self.contact_name}'

@@ -1,15 +1,18 @@
 import mimetypes
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from storages.backends.sftpstorage import SFTPStorage
+from django.core.files.storage import FileSystemStorage
 
 from .models import UserFile
-from .forms import UserFileAdd
+from .forms import UserFileAdd, FilterForm
 # Create your views here.
 
 SFS = SFTPStorage()
+LFS = FileSystemStorage()
 
 
 @login_required(login_url='login')
@@ -18,7 +21,6 @@ def add_file(request):
         form = UserFileAdd(request.POST, request.FILES)
         if form.is_valid():
             filename = request.FILES['file']
-            print(filename)
             print(mimetypes.guess_type(filename.name))
             if form.is_valid():
                 form.save()
@@ -30,29 +32,18 @@ def add_file(request):
     return render(request, 'users_files/add.html', {'form': form})
 
 
-class UsersFilesView(generic.ListView):
-    model = UserFile
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['userfile_list'] = UserFile.objects.filter(
-            user_id=self.request.user.id)
-        return context
-
-
+@login_required(login_url='login')
 def download_file(request, filename):
 
-    # f_path = '/file'
-    # filename = request['filename']
-    # print(SFS.exists('files\\' + filename))
-    if SFS.exists('files\\' + filename):
-        file = SFS._read('files\\' + filename)
+    if LFS.exists('files/' + filename):
+        file = LFS.open('files/' + filename)
         mime_type, _ = mimetypes.guess_type(filename)
         response = HttpResponse(file, content_type=mime_type)
         response['Content-Disposition'] = f"attachment; filename={filename}"
         return response
 
 
+@login_required(login_url='login')
 def delete_file(request, id):
     # if SFS.exists('files\\' + file):
     print(id)
@@ -61,15 +52,37 @@ def delete_file(request, id):
     return redirect('userfiles')
 
 
+@login_required(login_url='login')
 def files_by_categorie(request, category_name):
-    userfile_list = []
     userfile_list = UserFile.objects.filter(
         user_id=request.user.id).filter(category=category_name)
     return render(request, 'users_files/userfile_list.html', {'userfile_list': userfile_list, 'filtered': True, 'category': category_name})
 
 
+@login_required(login_url='login')
 def files_all(request):
-    userfile_list = []
+    form = FilterForm(request.POST or None)
+
     userfile_list = UserFile.objects.filter(
         user_id=request.user.id)
-    return render(request, 'users_files/userfile_list.html', {'userfile_list': userfile_list, 'filtered': False})
+
+    paginator = Paginator(userfile_list, 10)  # Show 25 contacts per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'users_files/userfile_list.html', {'userfile_list': page_obj, 'filtered': False, 'form': form})
+
+
+@login_required(login_url='login')
+def order_by(request):
+    form = FilterForm(request.POST or None)
+    if request.method == 'POST':
+        order_by = request.POST['order_by']
+    userfile_list = UserFile.objects.filter(
+        user_id=request.user.id).order_by(order_by)
+
+    paginator = Paginator(userfile_list, 10)  # Show 25 contacts per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'users_files/userfile_list.html', {'userfile_list': page_obj, 'filtered': False, 'form': form})

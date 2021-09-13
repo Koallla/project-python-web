@@ -3,51 +3,72 @@
 
 {% block header %}
 <h1>Files List, {{user.username|default:'Guest'}}</h1>
+<li style='margin: 10px'><a href="{% url 'files-create' %}">Add file</a></li>
+<li style='margin: 10px'><a href="{% url 'userfiles' %}">Show files</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="features">
     <p>
-
         {% if userfile_list %}
-        {% if filtered %}
-    <h2>Files in category - {{category}}</h2>
+
+        {% if form %}
+    <form method="POST" action="{% url 'order-by' %}">
+        {% csrf_token %}
+        {{form}} <br>
+        <button class='btn btn-dark btn-sm' type='submit'> Order </button>
+    </form>
     {% endif %}
 
-    <ul>
-        <table class="file-view">
-            <tr>
-                <th>Category</th>
-                <th>File</th>
-                <th>Action</th>
-            </tr>
+    {% if filtered %}
+    <h2>Files in category - {{category}}</h2>
+    {% endif %}
+    <table class="table">
+        <tr>
+            <th scope="col">Category</th>
+            <th scope="col">File</th>
+            <th scope="col">Action</th>
+        </tr>
 
-            {% for file in userfile_list %}
-            <tr>
-                <td><a class='btn btn-warning' type="submit" href="{% url 'category' file.category %}">
-                        {{file.category}} </a>
-                </td>
-                <td><a href="{{ file.get_absolute_url }}">{{ file }}</a></td>
-                <td><a class='btn btn-warning' type="submit" href="{% url 'delete-file' file.id %}">
-                        Delete file</a></td>
-            </tr>
-            {% endfor %}
+        {% for file in userfile_list %}
+        <tr class="align-middle">
+            <td><a class='btn btn-dark btn-sm' type="submit" href="{% url 'category' file.category %}">
+                    {{file.category}} </a>
+            </td>
+            <td scope="row">{{ file }}</td>
+            <td> <a class='btn btn-info btn-sm' type="submit" href="{{ file.get_absolute_url }}">
+                    Download</a> <a class='btn btn-info btn-sm' type="submit" href="{% url 'delete-file' file.id %}">
+                    Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <span class="step-links">
+        {% if userfile_list.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ userfile_list.previous_page_number }}">previous</a>
+        {% endif %}
 
-        </table>
-        <br>
-        <br>
-    </ul>
+        <span class="current">
+            Page {{ userfile_list.number }} of {{ userfile_list.paginator.num_pages }}.
+        </span>
+
+        {% if userfile_list.has_next %}
+        <a href="?page={{ userfile_list.next_page_number }}">next</a>
+        <a href="?page={{ userfile_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    <br>
+    <br>
     {% else %}
     <p>There are no files in {{ user.name }}.</p>
     {% endif %}
     {% if filtered %}
-    <a href="{% url 'userfiles' %}">User files</a>
+    <a class='btn btn-warning' href="{% url 'userfiles' %}">Clear filter</a>
     {% endif %}
     <div>
         <a class='btn btn-warning' type='submit' href="{% url 'files-create' %}" target='_self'>Add new file</a>
     </div>
     <br>
-    <a href="{% url 'contacts:index' %}"> Back to HOME </a>
     </p>
 </div>
 {% endblock %}

@@ -1,18 +1,19 @@
 from django import template
+from django.conf.urls import url
+from django.core.paginator import Paginator
 from django.db.models import fields
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, request
-from .models import Contact, Phone
+from django.http import HttpResponse
+import mimetypes
 from django.template import loader
-from .forms import ContactForm, SearchForm, PhoneForm
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 from django.contrib.auth.decorators import login_required
 import re
 from datetime import date, datetime
 
-# Create your views here.
-import mimetypes
+from .forms import ContactForm, PhoneForm, SearchByDay, SearchByName
+from .models import Contact, Phone
 
 
 def download_file(request):
@@ -34,15 +35,15 @@ def phone_chek(new_value):
         new_value = new_value
 
 
+@login_required(login_url='login')
 def index(request):
+    contact_list = Contact.objects.filter(
+        user_id=request.user.id)
 
-    record_list = Contact.objects.all()
-    template = loader.get_template('contacts/index.html')
-    context = {
-        'record_list': record_list
-    }
-   # return HttpResponse(template.render(context, request))
-    return render(request, 'contacts/index.html')
+    paginator = Paginator(contact_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'contacts/index.html', {'record_list': page_obj})
 
 
 @login_required(login_url='login')
@@ -101,8 +102,22 @@ class ContactUpdateView(UpdateView):
 
 class ContactDeleteView(DeleteView):
     model = Contact
-    success_url = '/contacts/show_contacts'
+    success_url = 'contacts/'
     template_name = 'contacts/delete_view.html'
+
+
+@login_required(login_url='login')
+def delete_record(request, pk):
+    contact = Contact.objects.get(pk=pk)
+    contact.delete()
+    return index(request)
+
+
+@login_required(login_url='login')
+def delete_phone(request, pk):
+    phone = Phone.objects.get(pk=pk)
+    phone.delete()
+    return index(request)
 
 
 @login_required(login_url='login')
@@ -110,57 +125,49 @@ def search(request):
 
     if request.method == 'POST':
         contact_list = Contact.objects.filter(user=request.user.id)
+        print(Contact._meta.fields)
         # print(contact_list)
-        form = SearchForm(request.POST)
+        form = SearchByName(request.POST)
         if form.is_valid():
             name = form.cleaned_data.get('contact_name')
 
             # print(name)
             try:
-                contacts = contact_list.filter(contact_name__contains=name)
-                print(contacts)
-                return render(request, 'contacts/show_all.html', {'record_list': contacts, 'mode': 'search'})
+                contacts = contact_list.filter(contact_name__icontains=name)
+                return render(request, 'contacts/index.html', {'record_list': contacts, 'mode': 'search'})
             except:
                 error = 'No contacts with such name. Search is case sensitive'
-                form = SearchForm()
-                return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
+                form = SearchByName()
+                return render(request, 'contacts/index.html', {'form': form, 'error': error})
         else:
             error = 'No contats with sush name. Search is case sensitive'
-            form = SearchForm()
+            form = SearchByName()
             return render(request, 'contacts/search_contact.html', {'form': form, 'error': error})
 
     else:
-        message = 'Search is case sensitive'
-        form = SearchForm()
-        return render(request, 'contacts/search_contact.html', {'form': form, 'message': message})
+        form = SearchByName()
+        form1 = SearchByDay()
+        return render(request, 'contacts/search_contact.html', {'form': form, 'form1': form1})
 
 
 @login_required(login_url='login')
 def add_phone(request, id):
     form = PhoneForm()
     # print(id)
-
-    try:
-        person = Contact.objects.get(id=id)
-
-        if request.method == "POST":
-            forma = PhoneForm(request.POST)
-            if forma.is_valid():
-
-                phone = forma.cleaned_data.get('phone')
-                phone1 = Phone(phone=phone, contact=person)
-                phone1.save()
-                return HttpResponseRedirect("/")
-            else:
-                error = 'Enter the valid phone. Phone number must have 10 digits'
-                form = PhoneForm()
-                return render(request, 'contacts/add_phone.html', {'form': form, 'error': error})
+    person = Contact.objects.get(id=id)
+    if request.method == "POST":
+        forma = PhoneForm(request.POST)
+        if forma.is_valid():
+            phone = forma.cleaned_data.get('phone')
+            phone1 = Phone(phone=phone, contact=person)
+            phone1.save()
+            return HttpResponseRedirect("/")
         else:
-            return render(request, 'contacts/add_phone.html', {'form': form})
-    except:
-        error = 'This contact dos not Exists'
-        form = PhoneForm()
-        return render(request, 'contacts/add_phone.html', {'form': form, 'error': error})
+            error = 'Enter the valid phone. Phone number must have 10 digits'
+            form = PhoneForm()
+            return render(request, 'contacts/add_phone.html', {'form': forma, 'error': error, 'person': person})
+    else:
+        return render(request, 'contacts/add_phone.html', {'form': form, 'person': person})
 
 
 def count_days(d_now, d_birth):
@@ -192,3 +199,17 @@ def days_to_birthday(request, id):
             'error': error,
         }
         return HttpResponse(template.render(context, request))
+
+
+@login_required(login_url='login')
+def filtered_by_day(request):
+    if request.method == 'POST':
+        form = SearchByDay(request.POST)
+        if form.is_valid():
+            day_to_birtday = form.cleaned_data.get('day_to_birthday')
+            contact_list = Contact.objects.filter(user=request.user.id)
+            contacts = []
+            for contact in contact_list:
+                if contact.day_to_birhday(day_to_birtday):
+                    contacts.append(contact)
+    return render(request, 'contacts/index.html', {'record_list': contacts, 'mode': 'search'})

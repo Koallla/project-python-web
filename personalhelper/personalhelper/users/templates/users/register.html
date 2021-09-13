@@ -11,9 +11,7 @@
     <form action="" method="post">
         <p>
             {% csrf_token %}
-            {%for err in form.errors %}
-            {{err}}
-            {% endfor %}
+            {{errors}}
             {{form.as_ul}}<br>
             <input type="submit" value="Register">
         </p>

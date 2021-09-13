@@ -2,19 +2,23 @@ body {
   background: #3590a5;
 }
 
+ol,
+ul {
+  padding-left: 0rem;
+}
+
 aside {
   float: left;
   background: #2e2b3b;
   width: 20%;
   padding: 2.5%;
-  height: 100vh;
+  height: 113vh;
   color: #fff;
   border-right: 5px solid #4d4d4d;
 }
 
 header.page-header {
   background: #2e2b3b no-repeat left/cover;
-  /* url(/media/examples/puppy-header-logo.jpg); */
   display: flex;
   height: 100px;
   min-width: 120px;
@@ -73,14 +77,15 @@ aside ul a:hover {
 main .features {
   float: left;
   color: #fff;
-  margin-top: 100px;
+  margin-top: 50px;
   text-align: center;
-  width: 75%;
+  width: 90%;
 }
 
 main .features h1 {
   font-size: 50px;
 }
+
 main .features p {
   max-width: 400px;
   margin: 20px auto;
@@ -89,6 +94,7 @@ main .features p {
 a {
   color: #fda80d;
   text-decoration: underline;
+  margin: 10px;
 }
 
 label,
@@ -110,14 +116,31 @@ span.helptext {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-left: 5%;
 }
 
 input[type="submit"] {
   padding: 5px 15px;
-  width: 40%;
+  width: 200px;
   background: #ccc;
   border: 0 none;
   cursor: pointer;
   -webkit-border-radius: 5px;
   border-radius: 5px;
+}
+
+button {
+  width: 200px;
+}
+
+.btn-warning {
+  color: #000;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  width: 200px;
+}
+
+.btn-info {
+  color: #000;
+  width: 25%;
 }
