@@ -1,8 +1,11 @@
 import os
+<<<<<<< HEAD
 # import django_heroku
 
 
 # django_heroku.settings(locals())
+=======
+>>>>>>> 4bb00bf6501ea27232f4514450d3c3dd24fb4f8d
 """
 Django settings for personalhelper project.
 
