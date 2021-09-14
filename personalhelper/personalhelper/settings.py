@@ -60,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'personalhelper.urls'
@@ -172,8 +171,5 @@ LOGOUT_REDIRECT_URL = "contacts:index"
 
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
-
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals(), staticfiles=False)
